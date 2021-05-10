@@ -1,0 +1,29 @@
+{
+    "Records":[
+        {
+            "keywords":"»ç°ú",
+            "limit":5,
+            "format":"jpg",
+            "color-type":"full-color",
+            "print_url":true,
+            "print_size":true
+        },
+        {
+            "keywords":"watermelon",
+            "limit":50,
+            "format":"bmp",
+            "color-type":"full-color",
+            "print_url":true,
+            "print_size":true
+        },
+        {
+            "keywords":"peach",
+            "limit":200,
+            "format":"bmp",
+            "color-type":"full-color",
+            "print_url":true,
+            "print_size":true,
+            "chromedriver":"E:\\01.GoogleImages\\chromedriver.exe"
+        }
+    ]
+}

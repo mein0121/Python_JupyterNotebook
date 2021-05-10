@@ -14,7 +14,7 @@
     <segmented>0</segmented>
     <object>
         <name>cat</name>
-        <pose>Frontal</pose>
+		<pose>Frontal</pose>
         <truncated>0</truncated>
         <occluded>0</occluded>
         <bndbox>
