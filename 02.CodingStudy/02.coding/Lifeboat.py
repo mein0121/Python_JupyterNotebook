@@ -14,4 +14,4 @@ def solution(people, limit):
 
 a = [30, 70, 50, 80, 60]
 b = 100
-solution(a, b)
+print(solution(a, b))
