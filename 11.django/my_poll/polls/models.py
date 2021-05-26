@@ -31,9 +31,8 @@ class Choice(models.Model):
     # choice_id = models.BigAutoField(primary_key=True)
     choice_text = models.CharField(max_length=200)
     vote = models.PositiveIntegerField(default=0)
-    question = models.ForeignKey(to=Question, on_delete=models.CASCADE) 
-    # to : 참조 Model클래스 지정.
-    # on_delete: 부모 테이블의 값이 delete될 경우 처리방식. CASCADE: 참조하는 자식데이터도 같이 삭제.
+    question = models.ForeignKey(to=Question, on_delete=models.CASCADE) # to : 참조 Model클래스 지정.
+                                                                        # on_delete: 부모 테이블의 값이 delete될 경우 처리방식. CASCADE: 참조하는 자식데이터도 같이 삭제.
 
     def __str__(self):
         return self.choice_text
