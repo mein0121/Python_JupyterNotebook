@@ -22,10 +22,18 @@ def list(request):
     # return HttpResponse(str(question_list))
 
 # vote_form View(한개 질문에 대한 정보를 조회해서 응답.)
+# def vote_form(request, question_id):
+#     vote_info = Choice.objects.filter(question_id=question_id)
+#     dic={}
+#     for idx, q in enumerate(vote_info):
+#         dic["{}".format(idx)] = q.choice_text
+#     return HttpResponse(dic.items())
+
+# vote_form View(한개 질문에 대한 정보를 조회해서 응답.)
 def vote_form(request, question_id):
-    vote_info = Choice.objects.filter(question_id=question_id)
-    # print("vote_form", question_id)
-    dic={}
-    for idx, q in enumerate(vote_info):
-        dic["{}".format(idx)] = q.choice_text
-    return HttpResponse(dic.items())
+    print("vote_form", question_id)
+    try:
+        question = Question.objects.get(pk=question_id)
+        return render(request, 'polls/vote_form.html',{"question": question})
+    except:
+        return render(request, 'polls/error.html', {"error_message":f"{question_id} is not existing question."})
