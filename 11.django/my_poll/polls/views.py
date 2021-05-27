@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import Choice, SubChoice, Question
 from django.http import HttpResponse
 # 질문 목록을 보여주는 View
@@ -22,18 +22,54 @@ def list(request):
     # return HttpResponse(str(question_list))
 
 # vote_form View(한개 질문에 대한 정보를 조회해서 응답.)
-# def vote_form(request, question_id):
-#     vote_info = Choice.objects.filter(question_id=question_id)
-#     dic={}
-#     for idx, q in enumerate(vote_info):
-#         dic["{}".format(idx)] = q.choice_text
-#     return HttpResponse(dic.items())
-
-# vote_form View(한개 질문에 대한 정보를 조회해서 응답.)
 def vote_form(request, question_id):
     print("vote_form", question_id)
+
     try:
         question = Question.objects.get(pk=question_id)
-        return render(request, 'polls/vote_form.html',{"question": question})
+        return render(request, 'polls/vote_form.html',
+        {"question": question})
     except:
-        return render(request, 'polls/error.html', {"error_message":f"{question_id} is not existing question."})
+        return render(request, 'polls/error.html', 
+        {"error_message":f"{question_id} is not existing question."})
+
+# 투표처리 - 선택된 Choice의 vote값을 1증가
+# /polls/vote
+def vote(request):
+    # 요청 파라미터 조회 + 검증
+    # POST요청: request.POST.get('요청파라미터이름') or request.POST['이름']
+    # GET요청 : request.GET.get('요청파라미터이름')  or request.GET['이름']
+    choice_id = request.POST.get('choice')
+    # 요청 파라미터 검증: choice로 넘어온 값이 없다면(None) 다시 vote_form으로 이동.
+    question_search = request.POST.get('question_id')
+    if choice_id == None:
+        question = Question.objects.get(pk=question_search)
+        return render(request, "polls/vote_form.html",
+                    {
+                        "question":question,
+                        "error_message":"보기를 선택하세요."
+                    })
+
+    # print(type(request.POST),choice_id, request.POST['choice'])
+    # Business logic 처리 - 투표 처리.
+    # update할 보기(Choice)를 조회
+    choice = Choice.objects.get(pk=choice_id)
+    # vote의 값을 1증가
+    choice.vote += 1
+    # update
+    choice.save() # pk가 있으면 update, 없으면 insert.
+    
+    return redirect("/polls/vote_result/{}".format(choice.question_id))
+    # return redirect(f"/polls/vote_result/{question_search}")
+
+# 문제의 투표결과를 보여주는 view. /polls/vote_result/번호
+def vote_result(request, question_id):
+    #조회
+    question = Question.objects.get(pk=question_id)
+    return render(request, "polls/vote_result.html", {"question": question})
+# 문제의 투표결과를 보여주는 view. /polls/vote_result/번호
+# def vote_result(request, question_id):
+#     #조회
+#     # question = Question.objects.get(pk=question_id)
+#     choice =Choice.objects.get(pk=question_id)
+#     return render(request, "polls/vote_result.html", {"choice": choice})

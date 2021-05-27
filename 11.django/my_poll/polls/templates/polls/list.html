@@ -14,7 +14,7 @@
     <ul>
         {% for s in question_list %}
         <li>
-            <a href="/polls/vote_form/{{s.id}}">{{s.question_text}}</a>
+            <a href="/polls/vote_form/{{s.pk}}">{{s.id}} {{s.question_text}}</a>
             등록날짜:
             {{s.pub_date|date:'Y-m-d'}}
         </li>

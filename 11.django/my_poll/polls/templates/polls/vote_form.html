@@ -9,10 +9,64 @@
 </head>
 <body>
     <h1>투표 폼</h1>
-    {{question.id}}. {{question.question_text}}<p></p>
-    {%for choice in question.choice_set.all%}
+    {# if문 넣기 #}
+    {% if error_message != None %}
+        <div style="color: red">
+            {{error_message}}{# 출력태그 - 변수가 없거나 None일 경우에는 아무것도 출력하지 않는다.#}
+        </div>
+    {% endif %}
+    {% comment %}
+    <!-- {{question.id}}. {{question.question_text}}<p></p>
+        {%for choice in question.choice_set.all%}
         {# choice: Choice모델 객체 #}
         {{forloop.counter}}. {{choice.choice_text}}<br>
-    {%endfor%}
+    {%endfor%}<p>
+    </p> -->
+    {% endcomment %}
+
+ 
+    <!-- 체크박스 -->
+    <!-- <fieldset> -->
+        <!-- <legend>{{question.pk}}. {{question.question_text}}</legend><br> -->
+        {{question.pk}}. {{question.question_text}}<p>
+        <form action="/polls/vote" method="POST">
+            {% csrf_token %} 
+            {# csrf_token: POST방식 요청시 반드시 넣어줘야 한다. - csrf 공격을 방지하기 위한 token값을 생성 #}
+            
+            
+            <input type="hidden" name="question_id" value="{{question.pk}}">
+
+            {%for choice in question.choice_set.all%}
+                {# choice: Choice모델 객체 #}
+                <input type="radio" name="choice" value="{{choice.pk}}" id="{{choice.pk}}">
+                <label for={{choice.pk}}>{{choice.choice_text}}</label><br>
+
+                {% comment %}
+                <!-- <label><input type="radio" name="choice" value="{{choice.pk}}">
+                {{choice.choice_text}}</label><br> -->
+                {% endcomment %}
+            {%endfor%}<br>
+            <input type="submit" value="VOTE"><button type="submit">투표</button>
+            <input type="reset" value="RESET"><button type="reset">초기화</button>
+        </form>
+    <!-- </fieldset> -->
+
+    <!-- 스크롤형식 셀렉트 -->
+    <fieldset disabled>
+        <legend>{{question.id}}. {{question.question_text}}</legend>
+        <form>
+            <select naem="vote" id="vote_select">
+                <option value="">--Please choose an option--</option>
+                    {%for choice in question.choice_set.all%}
+                    {# choice: Choice모델 객체 #}
+                    <option value={{choice.choice_text}}>{{choice.choice_text}}</option>
+                    {%endfor%}<br>
+            </select>
+        </form>
+    </fieldset> 
 </body>
 </html>
+{# 한줄주석 #}
+{% comment %}
+    block주석
+{% endcomment %}
