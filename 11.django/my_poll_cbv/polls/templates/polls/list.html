@@ -4,13 +4,14 @@
 {%block contents%}
 
     <h1>설문 목록</h1>
-    질문 총 개수: {{question_list|length}}
-    <ul>
+    
+    <ul class="list-group">
+        <li class="list-group-item active" aria-current="true">설문 질문 수: {{question_list|length}}</li>
         {% for s in question_list %}
-        <li>
+        <li class="list-group-item">
             <!-- <a href="/polls/vote_form/{{s.pk}}"> -->
-                <a href="{%url 'polls:vote_form' s.pk%}">
-                {{s.id}} {{s.question_text|truncatewords:2}}
+                <a href="{%url 'polls:vote' s.pk%}">
+                {{s.id}} {{s.question_text|truncatewords:3}}
 
             </a>
             등록날짜:

@@ -1,9 +1,13 @@
 <!-- templates/polls/vope_form.html -->
-{%extends "layout.html"%}
-
-{%block title%}투포 페이지{%endblock title%}
-
-{%block contents%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>투표</title>
+</head>
+<body>
     <h1>투표 폼</h1>
     {# if문 넣기 #}
     {% if error_message != None %}
@@ -62,8 +66,9 @@
             </select>
         </form>
     </fieldset> 
+</body>
+</html>
 {# 한줄주석 #}
 {% comment %}
     block주석
 {% endcomment %}
-{%endblock contents%}

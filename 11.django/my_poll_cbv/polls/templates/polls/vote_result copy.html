@@ -1,8 +1,12 @@
-{%extends "layout.html"%}
-
-{%block title%}투표결과페이지{%endblock title%}
-
-{%block contents%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vote result</title>
+</head>
+<body>
     <h1>투표 결과</h1>
     {{question.pk}}. {{question.question_text}}
     <ol>
@@ -18,4 +22,5 @@
     선택한 것: {{choice.choice_text}}<p></p>
     투표결과: {{choice.vote}}   
     {% endcomment %}
-{%endblock contents%}
+</body>
+</html>

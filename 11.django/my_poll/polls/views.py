@@ -1,6 +1,8 @@
 from django.shortcuts import render, redirect
 from .models import Choice, SubChoice, Question
 from django.http import HttpResponse
+
+from django.urls import reverse # reverse함수: path설정 이름으로 url문자열을 만들어주는 함수.
 # 질문 목록을 보여주는 View
 # View 로직 순서.
 # 1. 사용자가 보내준 값(있다면)에 대한 검증/타입 변경
@@ -59,7 +61,10 @@ def vote(request):
     # update
     choice.save() # pk가 있으면 update, 없으면 insert.
     
-    return redirect("/polls/vote_result/{}".format(choice.question_id))
+    # 결과 응답       "url 설정 이름"       args=[path파라미터에 전달할 값,...,...,..]
+    url_str = reverse("polls:vote_result", args=[choice.question_id])
+    return redirect(url_str)
+    # return redirect("/polls/vote_result/{}".format(choice.question_id))
     # return redirect(f"/polls/vote_result/{question_search}")
 
 # 문제의 투표결과를 보여주는 view. /polls/vote_result/번호

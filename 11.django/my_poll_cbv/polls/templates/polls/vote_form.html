@@ -27,7 +27,7 @@
         <!-- <legend>{{question.pk}}. {{question.question_text}}</legend><br> -->
         {{question.pk}}. {{question.question_text}}<p>
         <!-- <form action="/polls/vote" method="POST"> -->
-            <form action="{%url 'polls:vote'%}" method="POST">
+            <form action="{%url 'polls:vote' question.pk%}" method="POST">
             {% csrf_token %} 
             {# csrf_token: POST방식 요청시 반드시 넣어줘야 한다. - csrf 공격을 방지하기 위한 token값을 생성 #}
             
@@ -44,8 +44,8 @@
                 {{choice.choice_text}}</label><br> -->
                 {% endcomment %}
             {%endfor%}<br>
-            <input type="submit" value="VOTE"><button type="submit">투표</button>
-            <input type="reset" value="RESET"><button type="reset">초기화</button>
+            <input class="btn btn-primary" type="submit" value="VOTE"><button class="btn btn-outline-info" type="submit">투표</button>
+            <input class="btn btn-primary" type="reset" value="RESET"><button class="btn btn-dark" type="reset">초기화</button>
         </form>
     <!-- </fieldset> -->
 
