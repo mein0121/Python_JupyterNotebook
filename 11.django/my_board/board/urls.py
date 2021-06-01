@@ -25,5 +25,6 @@ urlpatterns = [
     path('create', views.PostCreateView.as_view(), name="create"), # 글 등록 View url
     path('update/<int:pk>', views.PostUpdateView.as_view(), name="update"), 
     # update: 글 수정처리 url. GET: 수정할 게시물의 pk를 path parameter로 받아야함.
-    
+    path('delete/<int:pk>', views.post_delete, name='delete'), # 삭제 처리.
+    path('list', views.PostListView.as_view(), name="list"),
 ]

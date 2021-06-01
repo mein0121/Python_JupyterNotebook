@@ -1,5 +1,5 @@
-from django.shortcuts import render
-from django.views.generic import CreateView, DetailView, UpdateView
+from django.shortcuts import redirect, render
+from django.views.generic import CreateView, DetailView, UpdateView, ListView
 from .forms import PostForm
 from django.urls import reverse_lazy
 from .models import Post
@@ -46,3 +46,25 @@ class PostUpdateView(UpdateView):
 
     def get_success_url(self):
         return reverse_lazy('board:detail', args=[self.object.pk])
+
+
+# 삭제처리
+# generic view: DeleteView를 사용 => 삭제 확인 화면을 거쳐서 삭제 처리한다.
+# 함수 기반으로 작성. path parameter로 삭제할 글의 id(pk)를 받아서 삭제 처리.
+def post_delete(request, pk):
+    # try
+    post = Post.objects.get(pk=pk) # 삭제할 데이터를 조회.
+    # except:
+    # 에러페이지 이동
+    post.delete() #post객체의 pk와 동일한 데이터를 삭제
+    return redirect("/")
+
+# 글 목록
+# ListView 구현
+# template_name: 결과를 보여줄 template의 경로
+# model: 조회할 모델 클래스를 지정
+# 조회결과를 template에 "object_list", "모델 이름 소문자_list(post_list)"라는 이름으로 전달.
+# ListView는 paging기능 지원
+class PostListView(ListView):
+    template_name = "board/post_list.html"
+    model = Post
