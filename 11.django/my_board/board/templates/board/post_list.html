@@ -28,7 +28,71 @@
                 </td> -->
             </tr>
             {%endfor%}
-        </tbody>  
+        </tbody> 
     </table>
+    <!-- 
+        페이징 처리
+        paginator변수 조회: Paginator객체
+        page_obj 변수 : 현재 페이지의 Page객체
+        is_paginated : 페이징 처리 유무 (ListView: paginated_by 설정하면 True, 안하면 False)
+    -->
+    {% if is_paginated %}
+    <ul class="pagination justify-content-center">       
+    <!-- 이전 페이지 그룹이동 링크 -->
+        {% if has_previous %}
+        <li class="page-item">
+            <a href="{%url 'board:list'%}?page={{previous_page_no}}" class="page-link">이전</a>
+        </li>
+        {% else %}
+        <li class="page-item">
+            <span class="page-link">이전</span>
+        </li>
+    {% endif %}
+    <!-- 페이지 링크 -->
+        {%for page in page_range%}
+            {# page == 현재페이지번호 #}
+            {% if page == page_obj.number %}
+            <!-- <li class="page-item disabled"></li> -->
+            <li class="page-item active"><span class="page-link">{{page}}</span></li>
+            <!-- <li class="page-item active">
+                <a class="page-link">{{page}}</a>
+            </li> -->
+            <!-- <li class="page-item disabled">
+                <a class="page-link" href="#" tabindex="-1" aria-disabled="true">{{page}}</a>
+            </li> -->
+            {% else %}
+            <li class="page-item">
+                <a class="page-link" href="{%url 'board:list'%}?page={{page}}">{{page}}</a>
+            </li>
+            {% endif %}
+        {%endfor%}
+    <!-- 다음 페이지 그룹이동 링크 -->
+        {% if has_next %}
+        <li class="page-item">
+            <a href="{%url 'board:list'%}?page={{next_page_no}}" class="page-link">다음</a>
+        </li>
+        {% else %}
+        <li class="page-item">
+            <span class="page-link">다음</span>
+        </li>
+        {% endif %}
+    </ul>
+    {% endif %}
 
+
+    <nav aria-label="...">
+        <ul class="pagination">
+          <li class="page-item disabled">
+            <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+          </li>
+          <li class="page-item"><a class="page-link" href="#">1</a></li>
+          <li class="page-item active" aria-current="page">
+            <a class="page-link" href="#">2</a>
+          </li>
+          <li class="page-item"><a class="page-link" href="#">3</a></li>
+          <li class="page-item">
+            <a class="page-link" href="#">Next</a>
+          </li>
+        </ul>
+      </nav>
 {%endblock contents%}
