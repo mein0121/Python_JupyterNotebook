@@ -14,12 +14,17 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import path
 from django.views.generic import TemplateView
+from . import views
+
+
+# 사용자 호출 -> View.as_view() -> dispatch() 다음 호출이 분기
+# GET요청 : dispatch() -> get()
+# POST요청: dispatch() -> post()
+
+app_name = 'account'
 
 urlpatterns = [
-    path('', TemplateView.as_view(template_name='home.html'), name='home'),
-    path('admin/', admin.site.urls),
-    path('board/', include('board.urls')),
-    path('account/',include('account.urls')),
+
 ]

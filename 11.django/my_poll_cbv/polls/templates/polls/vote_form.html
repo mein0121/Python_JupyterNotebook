@@ -44,13 +44,19 @@
                 {{choice.choice_text}}</label><br> -->
                 {% endcomment %}
             {%endfor%}<br>
-            <input class="btn btn-primary" type="submit" value="VOTE"><button class="btn btn-outline-info" type="submit">투표</button>
-            <input class="btn btn-primary" type="reset" value="RESET"><button class="btn btn-dark" type="reset">초기화</button>
+            {% if user.is_authenticated %}
+            <input class="btn btn-primary" type="submit" value="VOTE">
+            <button class="btn btn-outline-info" type="submit">투표</button>
+            <input class="btn btn-danger" type="reset" value="RESET">
+            <button class="btn btn-dark" type="reset">초기화</button>
+            {%else%}
+            로그인을 하셔야 투표하실수 있습니다.
+            {%endif%}
         </form>
     <!-- </fieldset> -->
 
     <!-- 스크롤형식 셀렉트 -->
-    <fieldset disabled>
+    <!-- <fieldset disabled>
         <legend>{{question.id}}. {{question.question_text}}</legend>
         <form>
             <select naem="vote" id="vote_select">
@@ -61,7 +67,7 @@
                     {%endfor%}<br>
             </select>
         </form>
-    </fieldset> 
+    </fieldset>  -->
 {# 한줄주석 #}
 {% comment %}
     block주석

@@ -1,0 +1,14 @@
+{%extends "layout.html"%}
+{%block title%}가입{%endblock title%}
+
+{%block contents%}
+<h1>가입</h1>
+<form method="POST">
+    {%csrf_token%}
+    {{form.as_p}}
+    <button type="submit" class="btn btn-primary">가입</button>
+
+</form>
+
+
+{%endblock contents%}

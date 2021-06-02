@@ -1,0 +1,11 @@
+<!-- board/templates/board/post_update.html -->
+{%extends 'layout.html'%}
+{% load bootstrap4 %}
+{%block title%} Log in {%endblock title%}
+
+{%block contents%}
+<h1>로그인</h1>
+<form method="POST">
+    {%csrf_token%}
+
+{%endblock contents%}

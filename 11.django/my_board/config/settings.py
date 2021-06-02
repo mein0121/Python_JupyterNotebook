@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'bootstrap4',
     'board',
+    'account',
 ]
 
 MIDDLEWARE = [
@@ -127,3 +128,18 @@ STATIC_URL = '/static/'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+########################################################################
+# 로그인 관련 설정
+########################################################################
+# CustomUser모델 등록
+AUTH_USER_MODEL = 'account.CustomUser' # 문자열: "app이름.모델클래스이름"
+
+# 로그인 필요한 기능을 로그인 안하고 요청할 때 이동할 url.
+LOGIN_URL = '/account/login'
+
+# 로그인 성공 후 이동할 url.
+LOGIN_REDIRECT_URL = '/'
+
+# 로그아웃 성공 후 이동할 url.
+LOGOUT_REDIRECT_URL = '/'

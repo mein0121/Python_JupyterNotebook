@@ -18,7 +18,9 @@ from django.urls import path, include
 from polls import views
 from django.views.generic import TemplateView
 from django.contrib.auth.views import LoginView, LogoutView
-
+from django.contrib.auth.forms import UserCreationForm
+from django.views.generic import CreateView
+from django.urls import reverse_lazy
 
 app_name = "account"
 urlpatterns = [
@@ -26,5 +28,10 @@ urlpatterns = [
     #             POST요청: 요청파라미터로 받은 
     path('login', LoginView.as_view(template_name="account/login_form.html"), name="login"),
     # LogoutView - 로그아웃 처리후에 setting.py의 LOGOUT_REDIRECT_URL의 설정 URL로 이동.
-    path('logout', LogoutView.as_view(), name='logout')
+    path('logout', LogoutView.as_view(), name='logout'),
+    path('join', CreateView.as_view(template_name="account/join_form.html", 
+                                    form_class=UserCreationForm,
+                                    # success_url='/account/login'.
+                                    success_url=reverse_lazy('account:login')),
+                                    name='join'),
 ]
