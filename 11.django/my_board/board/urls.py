@@ -18,6 +18,11 @@ from django.urls import path
 from django.views.generic import TemplateView
 from . import views
 
+
+# 사용자 호출 -> View.as_view() -> dispatch() 다음 호출이 분기
+# GET요청 : dispatch() -> get()
+# POST요청: dispatch() -> post()
+
 app_name = 'board'
 
 urlpatterns = [
