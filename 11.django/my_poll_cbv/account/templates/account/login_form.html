@@ -1,0 +1,16 @@
+{%extends "layout.html"%}
+{%block title%}Log in{%endblock title%}
+
+{%block contents%}
+<h1>로그인</h1>
+<form method="POST">
+    {% csrf_token %} 
+    {{form.as_p}}
+    <button type="submit" class="btn btn-primary">로그인</button>
+
+
+
+</form>
+
+
+{%endblock contents%}

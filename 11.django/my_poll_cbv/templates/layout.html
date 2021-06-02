@@ -16,8 +16,10 @@
 </head>
 <body>
     <div class="container">
-        <a href='{%url "polls:list" %}'>질문 목록</a>
         <a href="/admin">관리</a>
+        <a href='{% url "polls:list" %}'>질문 목록</a>
+        <a href="{% url 'account:login' %}">로그인</a>
+        <a href="{% url 'account:logout' %}">로그아웃</a>
         <hr><!--구분선-->
         {%block contents%}{%endblock contents%}
     </div>

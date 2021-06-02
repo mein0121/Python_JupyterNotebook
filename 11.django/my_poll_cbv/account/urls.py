@@ -17,11 +17,14 @@ from django.contrib import admin
 from django.urls import path, include
 from polls import views
 from django.views.generic import TemplateView
+from django.contrib.auth.views import LoginView, LogoutView
 
+
+app_name = "account"
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('polls/',include("polls.urls")),
-    path('account/', include('account.urls')),
-    # url시작이 polls이면 polls/urls.py의 urlpattern을 참고해라.
-    path("",TemplateView.as_view(template_name="home.html"), name='home')
+    # LoginView - GET 요청: template_name의 template로 이동(render())->로그인 입력폼.
+    #             POST요청: 요청파라미터로 받은 
+    path('login', LoginView.as_view(template_name="account/login_form.html"), name="login"),
+    # LogoutView - 로그아웃 처리후에 setting.py의 LOGOUT_REDIRECT_URL의 설정 URL로 이동.
+    path('logout', LogoutView.as_view(), name='logout')
 ]

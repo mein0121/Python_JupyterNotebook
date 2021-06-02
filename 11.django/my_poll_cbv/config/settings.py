@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'polls',
+    'account',
 ]
 
 MIDDLEWARE = [
@@ -125,3 +126,15 @@ STATIC_URL = '/static/'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+############################################################
+# 인증(로그인) 관련 설정
+#   - LOGIN_REDIRECT_URL - 로그인 성공시 이동할 URL(redirect-view의 url)
+#   - LOGIN_URL -   인증(로그인) 해야만 요청할 수 있는 요청을 로그인 하지 않은 상태로
+#                   요청했을때 이동할 url(보통 로그인 화면으로 이동)
+#   - LOGOUT_REDIRECT_URL - 로그아웃 성공시 이동할 url(redirect-view의 url)
+
+
+LOGIN_REDIRECT_URL = "/polls/list" # 질문목록 페이지
+LOGIN_URL = 'account/login'
+LOGOUT_REDIRECT_URL = '/'
