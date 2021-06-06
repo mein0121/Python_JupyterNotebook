@@ -15,9 +15,13 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from django.urls.base import reverse_lazy
 from django.views.generic import TemplateView
 from . import views
-
+from django.views.generic import CreateView
+from django.contrib.auth.views import LoginView, LogoutView
+from django.contrib.auth.forms import AuthenticationForm
+from .forms import CustomUserCreationForm
 
 # 사용자 호출 -> View.as_view() -> dispatch() 다음 호출이 분기
 # GET요청 : dispatch() -> get()
@@ -26,5 +30,14 @@ from . import views
 app_name = 'account'
 
 urlpatterns = [
-
+    # path('join', views.UserCreateView.as_view(), name="join"), #가입
+    path('join', CreateView.as_view(template_name="account/join_form.html", 
+                                    form_class=CustomUserCreationForm,
+                                    success_url = reverse_lazy('home')), 
+                                    name='join'),
+    # path('login', views.UserLoginView.as_view(), name='login'), # 로그인
+    path('login', LoginView.as_view(template_name='account/login_form.html', 
+                                    form_class=AuthenticationForm), 
+                                    name='login'),
+    path('logout', LogoutView.as_view(),name='logout'),
 ]

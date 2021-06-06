@@ -1,8 +1,14 @@
 from django.shortcuts import redirect, render
 from django.views.generic import CreateView, DetailView, UpdateView, ListView
-from .forms import PostForm
 from django.urls import reverse_lazy
+
+from .forms import PostForm
 from .models import Post
+
+
+# 로그인한 사용자만 호출할수있게 만드는 
+from django.contrib.auth.decorators import login_required # 로그인 여부를 확인해서 로그인 안한경우 settings.py의 LOGIN_URL의 경로로 이동.
+from django.utils.decorators import method_decorator # Class의 메소드에 decorator를 선어해주는 decorator.
 # from django.core.paginator import Paginator
 
 # Create your views here.
@@ -13,6 +19,14 @@ from .models import Post
 #   post방식요청: 입력(등록) 처리. \
 #                처리성공: 성공페이지로 이동(redirect)
 #                처리실패: 입력양식 화면으로 이동(render())
+
+# 로그인한 사용자만 호출할수있는 기능
+# 글 작성자 추가. 
+# writer => 현재 로그인(글을 작성한) 사용자의 CustomUser객체를 사용.
+
+from django.contrib.auth import get_user # 로그인한  사용자의 User Model객체를 반환.
+
+@method_decorator(login_required, name='dispatch') # dispatch()메소드에 @login_required 장식자를 적용.
 class PostCreateView(CreateView):
     template_name = 'board/post_create.html' # 입력양식 화면 template경로.
     form_class = PostForm # 요청 파라미터를 처리할 Form을 지정.
@@ -23,6 +37,16 @@ class PostCreateView(CreateView):
     def get_success_url(self):
         # 반환값: 등록 성공후 redirect방식으로 이동할 view의 url을 문자열로 반환.
         return reverse_lazy('board:detail', args=[self.object.pk]) # args: path parameter로 전달할 값들을 리스트에 순서대로 담는다.
+    
+    # CreateView, UpdateView에서 POST요청 처리시 insert/delete 하기 전/후로 해야하는 작업이 있을경우 form_valid()를 오버라이딩한다.
+    # 로그인한 사용자의 User모델 객체를 insert하기 전에 model에 넣어준다.
+    # 매개변수: form - ModelForm을 첫번째 매개변수로 받는다.
+    def form_valid(self, form):
+        post = form.save(commit=False) #ModelForm.save(): Model객체가 반환. Commit=False: db에 적용 X.
+        post.writer = get_user(self.request) # 현재 로그인한 유저모델을 반환한것을 post.writer에 대입
+        print("=====================================",post.writer.name)
+        return super().form_valid(form)
+
 
 # 하나의 글 정보 조회(pk)
 # DetailView - pk로 조회한 결과를 template으로 보내주는 generic View
@@ -41,6 +65,9 @@ class PostDetailView(DetailView):
 # - form_class: Form/ModelForm 클래스 등록
 # - model: Model 클래스 등록 (수정 form template에 전달할 값을 조회하기 위해).
 # - success_url: 수정 처리후 redirect방식으로 이동할 View의 url(path parameter로 update한 Model정보를 사용한 경우 get_success_url()를 오버라이딩.)
+
+# 로그인한 사용자만 호출 가능.
+@method_decorator(login_required, name='post') # dispatch: post와 get모두다. Post나 get만 제한가능.
 class PostUpdateView(UpdateView):
     template_name = "board/post_update.html"
     form_class = PostForm
@@ -53,6 +80,8 @@ class PostUpdateView(UpdateView):
 # 삭제처리
 # generic view: DeleteView를 사용 => 삭제 확인 화면을 거쳐서 삭제 처리한다.
 # 함수 기반으로 작성. path parameter로 삭제할 글의 id(pk)를 받아서 삭제 처리.
+
+@login_required
 def post_delete(request, pk):
     # try
     post = Post.objects.get(pk=pk) # 삭제할 데이터를 조회.

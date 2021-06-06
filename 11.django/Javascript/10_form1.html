@@ -1,0 +1,53 @@
+<!-- form1.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        function sendForm(num){
+            var f1 = window.document.f1 
+            
+             if (num==1) {
+                f1.action = '/member/add'
+                f1.method = 'post'
+                // alert(f1.action+" , "+f1.method)
+            } else if(num == 2){
+                f1.action = '/member/update'
+                f1.method = 'post'
+            }
+
+            
+            id = f1.id.value
+            password = f1.password.value
+            
+            
+            if (id.length < 5) {
+                alert("ID는 5글자 이상 입니다.")
+                
+                f1.id.focus()
+                return
+            }
+            if (password.length < 5) {
+                alert("패스워드는 5글자 이상 입니다.")
+                f1.password.focus()
+                return
+                
+            }
+
+
+            f1.submit() 
+        }
+    </script>
+</head>
+<body>
+    <form name='f1'>
+        ID: <input type='text' name='id' required><span style='color:red' id="id_error"></span><br>
+        패스워드: <input type='password' name='password' required><br>
+
+        <input type='button' onclick='sendForm(1)' value='등록'>
+        <input type='button' onclick='sendForm(2)' value='수정'>
+    </form>
+</body>
+</html>

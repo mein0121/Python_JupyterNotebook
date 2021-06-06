@@ -1,0 +1,55 @@
+<!-- form3.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        function get_item() {
+            var sel = document.f1.phone //<select>
+            var idx = sel.selectedIndex  //선택 항목의 index
+            console.log(idx)
+            optionList = sel.options //<option>들을 배열로 반환.
+            /*for (i=0; i < optionList.length; i++){
+                console.log(optionList[i].value+","+
+                            optionList[i].text+","+
+                            optionList[i].selected)
+            }*/
+            //선택된 option의 value/text
+            var str = optionList[idx].value+"-"+optionList[idx].text
+            console.log(str)
+
+            span = document.getElementById("layer")//<span></span>
+            span.innerHTML = "<b><i>"+str+"</i></b>" //<span>str</span>
+           }
+        function checkSel() {
+            //번호선택이 선택되면 전송되지 않도록 처리.
+            if(document.f1.phone.selectedIndex==0) {
+                alert('번호를 선택해요')
+                return false
+            }
+            
+        }
+    
+    </script>
+</head>
+<body>
+    <form name='f1' action='/add' onsubmit="return checkSel()">
+        <input type='submit' value='전송'><br>
+        <!--change 이벤트: select의 선택항목이 바뀌면 발생.-->
+        <select name='phone' onchange='get_item()'>
+            <!-- <option value='요청파라미터값'>Text<option> 
+                 value: 전송될 값, Text: 화면에 보여질 값
+                 value는 생략가능 (생략: Text가 value가 됨.)
+            -->
+            <option value='default'>번호선택</option>
+            <option>010</option>
+            <option>011</option>
+            <option>016</option>
+            <option>019</option>
+        </select>
+        <span id='layer'>선택내용</span>
+    </form>
+</body>
+</html>

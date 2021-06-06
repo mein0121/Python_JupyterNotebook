@@ -23,3 +23,11 @@ urlpatterns = [
     path('board/', include('board.urls')),
     path('account/',include('account.urls')),
 ]
+
+##############################################################################
+# 업로드된 파일을 client가 요청할 수 있도록 처리.
+##############################################################################
+from django.conf.urls.static import static
+from . import settings # config/setting.py
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+# UPLOAD된 파일들을 STATCI파일로 서비스하기 위한 설정(url 시작 path, media 파일의 root 디렉토리.)

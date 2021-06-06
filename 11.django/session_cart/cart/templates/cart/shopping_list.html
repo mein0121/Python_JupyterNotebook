@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    {% if error_message %}
+    <span style='color:red;margin-left:20px'>{{error_message}}</span>
+    {% endif %}
+    <form action="{% url 'cart:cart' %}" method="post">  
+        {% csrf_token %}
+        <ul>
+            <li>
+                <label for='1'>TV   </label>
+                <input type='checkbox' name='item' value='TV' id='1'>
+            </li>
+            <li>
+                <label for='2'>냉장고</label>
+                <input type='checkbox' name='item' value='냉장고' id='2'>
+            </li>
+            <li>
+                <label for='3'>세탁기</label>
+                <input type='checkbox' name='item' value='세탁기' id='3'>
+            </li>
+            <li>
+                <label for='4'>노트북</label>
+                <input type='checkbox' name='item' value='노트북' id='4'>
+            </li>
+            <li>
+                <label for='5'>모니터</label>
+                <input type='checkbox' name='item' value='모니터' id='5'>
+            </li>
+            <li>
+                <label for='6'>프린터</label>
+                <input type='checkbox' name='item' value='프린트' id='6'>
+            </li>       
+        </ul>
+        <button type='submit'>장바구니 담기</button>
+    </form>
+</body>
+</html>

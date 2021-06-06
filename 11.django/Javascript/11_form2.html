@@ -1,0 +1,56 @@
+<!-- form2.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        function checkHobby() {
+            hobbyList = document.f1.hobby
+            console.log(hobbyList)
+            console.log(hobbyList.length)
+            var cnt = 0 //체크된 체크박스 개수
+            for (i=0; i<hobbyList.length; i++)  {
+                if(hobbyList[i].checked) {  
+                    cnt++
+                }
+            }
+            
+            if(cnt < 3) {
+                alert('취미는 세개이상 체크하세요.')
+                return
+            }
+            alert('전송')
+            
+        }
+
+        function checkAll() {
+            var f1 = document.f1
+            var flag = f1.allCheck.checked
+            console.log(flag)
+            var hobbyList = f1.hobby
+            for(i=0; i<hobbyList.length;i++){
+                hobbyList[i].checked = flag
+            }
+        }
+    </script>
+</head>
+<body>
+    <form name='f1'>
+        취미를 선택하세요 (3개 이상선택)<br>
+        <input type='checkbox' name='hobby' value='독서' id='reading'><label for='reading'>독서</label>
+        <input type='checkbox' name='hobby' value='음악' id='music'><label for='music'>음악</label>
+        <input type='checkbox' name='hobby' value='운동' id='workout'><label for='workout'>운동</label>
+        <input type='checkbox' name='hobby' value='게임' id='game'><label for='game'>게임</label>
+        <input type='checkbox' name='hobby' value='영화' id='movie'><label for='movie'>영화</label>
+        <br>
+        <input type='checkbox' name='allCheck' onclick='checkAll()' id="allchk"><label for="allchk">모두선택/해제</label>
+
+        <p>
+            <input type='button' value='체크박스확인' onclick='checkHobby()'>
+        </p>
+    </form>
+</body>
+</html>

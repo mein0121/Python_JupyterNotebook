@@ -118,11 +118,20 @@ USE_L10N = True
 
 USE_TZ = True
 
-
+##############################################################
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
-
+##############################################################
+# 각 app들, 지정한 static 디렉토리에 있는 static파일들을 모을 디렉토리.(manage.py collectstatic)
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+# app/static 디렉토리 이외에 static파일들을 저장할 디렉토리들을 등록.
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static_files'),
+]
+# client에서 static파일들을 요청할때 사용할 url의 시작path.
 STATIC_URL = '/static/'
+
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
@@ -143,3 +152,10 @@ LOGIN_REDIRECT_URL = '/'
 
 # 로그아웃 성공 후 이동할 url.
 LOGOUT_REDIRECT_URL = '/'
+
+
+########################################################################
+# 파일 업로드 관련 설정
+########################################################################
+MEDIA_ROOT = os.path.join(BASE_DIR,'media') # 업로드된 파일들을 저장할 디렉토리.
+MEDIA_URL = '/media/' # client(tempate)에서 업로드된 파일을 요청할때 사용할 url의 시작 경로.

@@ -1,8 +1,20 @@
 <!-- root/templates/home.html -->
 {% extends "layout.html"%} <!--layout.html을 상속-->
+
+{% load static %} <!--static 태그 읽어오기 (loading)-->
 {%block title%}
 Home
 {%endblock title%}
 {%block contents%}
 <h1>홈페이지</h1>
+<img src='/static/11.jpg' alt="Text to display when image can not be displayed">
+<img src='/static/12.jpg' alt="Text to display when image can not be displayed">
+<img src='/static/13.jpg' alt="Text to display when image can not be displayed">
+<img src='/static/14.jpg' alt="Text to display when image can not be displayed">
+<img src='/static/15.jpg' alt="Text to display when image can not be displayed"><br>
+<img src='/static/board/1.jpg' alt="Text to display when image can not be displayed">
+<img src="{% static '/board/2.jpg' %}"> <!--static: /static/-->
+<img src="{% static '15.jpg' %}">
+<img src="https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png">
+<img src="https://ichef.bbci.co.uk/news/800/cpsprodpb/1675A/production/_113249919_hi061718491.jpg">
 {%endblock contents%}

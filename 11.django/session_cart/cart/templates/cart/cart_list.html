@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h2>장바구니</h2>
+
+    <ul>
+    {% for key, value in request.session.cart.items %}
+        <li>{{key}} - {{value}}</li>
+    {% endfor %}
+    </ul>
+
+
+
+    <a href="{% url 'cart:shopping_list' %}">쇼핑계속</a>
+    <a href="{% url 'cart:order' %}">주문</a>
+</body>
+</html>

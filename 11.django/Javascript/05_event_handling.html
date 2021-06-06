@@ -1,0 +1,124 @@
+<!-- event_handling.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    #layer{
+        width:300px;
+        height:300px;
+        background-color:blue;
+    }
+</style>
+<script>
+
+
+
+    function checkForm(){
+        // alert('클릭-폼')
+        nameTF = document.getElementById('name')//id가 name인 태그를 조회
+        ageTF = document.getElementById('age') 
+        name = nameTF.value  // 태그의 value속성값을 조회
+        age = ageTF.value
+
+        if(!name){  //name=''
+            alert('이름을 입력하세요')
+            nameTF.focus()
+            return
+        }else{
+            //5글자 이하만 가능.
+            if(name.length > 5) { //string.length : 글자수
+                alert('이름은 5글자까지 가능합니다.')
+                nameTF.value=''  //name input 태그의 value를 변경.
+                nameTF.focus()
+                return 
+            }
+        }
+        if(!age){
+            alert('나이를 입력하세요')
+            ageTF.focus()
+            return
+        }else{
+            ageNum = parseInt(age) //정수로 변경안되는 문자열일 경우 NaN(false)이 반환
+            if(!ageNum){
+                alert('나이는 숫자만 가능합니다.')
+                ageTF.value = ''
+                ageTF.focus()
+                return
+            }
+        }
+        // alert(name+", "+age)
+        form = document.getElementById('form')
+        form.submit() //form태그.submit() 전송
+    }
+
+    function checkForm2(){
+        // alert('클릭-폼')
+        nameTF = document.getElementById('name')//id가 name인 태그를 조회
+        ageTF = document.getElementById('age') 
+        name = nameTF.value  // 태그의 value속성값을 조회
+        age = ageTF.value
+
+        if(!name){  //name=''
+            alert('이름을 입력하세요')
+            nameTF.focus()
+            return false
+        }else{
+            //5글자 이하만 가능.
+            if(name.length > 5) { //string.length : 글자수
+                alert('이름은 5글자까지 가능합니다.')
+                nameTF.value=''  //name input 태그의 value를 변경.
+                nameTF.focus()
+                return false
+            }
+        }
+        if(!age){
+            alert('나이를 입력하세요')
+            ageTF.focus()
+            return false
+        }else{
+            ageNum = parseInt(age) //정수로 변경안되는 문자열일 경우 NaN(false)이 반환
+            if(!ageNum){
+                alert('나이는 숫자만 가능합니다.')
+                ageTF.value = ''
+                ageTF.focus()
+                return false
+            }
+        }
+        
+    }
+    function check(text_input) {
+        alert(text_input.value)
+        text_input.value = ""
+    }
+</script>
+<!-- <script src='scripts.js'></script> -->
+<body>
+    <div id='layer' onmouseover='console.log("마우스 IN")' 
+                    onmouseout='console.log("마우스out")'
+                    onclick='alert("클릭")'></div>
+
+    
+    <input type='text' name='txt' onblur='check(this)'>
+
+
+    <form action='/test' method='post' id='form' onsubmit='return checkForm2()'>
+        이름: <input type='text' name='name' id='name'><br>
+        나이: <input type='text' name='age' id='age'><br>
+        <input type='button' value='클릭' onclick='checkForm()'>
+        <input type='submit' value='등록'>
+    </form>
+</body>
+</html>
+
+
+
+
+
+
+
+
+

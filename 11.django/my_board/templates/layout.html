@@ -15,12 +15,77 @@
 
 </head>
 <body>
+    <!-- 
+        로그인한 경우 : 로그아웃, 글쓰기
+        로그인 안한 경우 : 로그인, 가입
+        공통 : 글목록
+        현재 사용자정보: user변수
+        로그인 여부 : user.is_authenticated
+     -->
     <div class="container">
+        <!-- <nav class="navbar navbar-expand-lg">
+            <ul class="nav">
+                <li class='nav-item'>
+                    <a href="/admin" class='nav-link'>관리</a>
+                </li>
+                <li class='nav-item'>
+                    <a href="{% url 'board:create' %} "class='nav-link'>글쓰기</a>
+                </li>
+                <li class='nav-item'>
+                    <a href="{% url 'board:list' %} "class='nav-link'>글목록</a>
+                </li>
+                <li class='nav-item'>
+                    <a href="{% url 'account:join' %} "class='nav-link'>가입</a>
+                </li>
+                <li class='nav-item'>
+                    <a href="{% url 'account:login' %} "class='nav-link'>로그인</a>
+                </li>
+                <li class='nav-item'>
+                    <a href="{% url 'account:logout' %} "class='nav-link'>로그아웃</a>
+                </li>
+            </ul>
+        </nav> -->
+
+        <nav class="nav">
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <li class="nav-item">
+                <a class="nav-link active" href="/admin">관리</a>
+                </li>
+                {% if user.is_authenticated %}
+                    <li class="nav-item">
+                    <a class="nav-link acitve" href="{% url 'board:create' %}">글쓰기</a>
+                    </li>
+                {% endif %}
+                <li class="nav-item">
+                <a class="nav-link acitve" href="{% url 'board:list' %}">글목록</a>
+                </li>
+                {% if not user.is_authenticated %}
+                    <li class="nav-item">
+                    <a class="nav-link acitve" href="{% url 'account:join' %}">가입</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link acitve" href="{% url 'account:login' %}">로그인</a>
+                    </li>
+                {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link acitve" href="{% url 'account:logout' %}">로그아웃</a>
+                    </li>
+                {% endif %}
+            </ul>
+        </nav>
+    <!-- <div class="container">
         <a href="/admin">관리</a>
         <a href="{% url 'board:create' %}">글쓰기</a>
         <a href="{% url 'board:list' %}">글목록</a>
-        <hr><!--구분선-->
-        {%block contents%}{%endblock contents%}
+
+        <a href="{% url 'account:join' %}">가입</a>
+        <a href="{% url 'account:login' %}">로그인</a>
+        <a href="{% url 'account:logout' %}">로그아웃</a>
+        <hr>
+
+    </div> -->
+    {%block contents%}
+    {%endblock contents%}
     </div>
 </body>
 </html>

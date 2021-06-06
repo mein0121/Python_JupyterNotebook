@@ -1,0 +1,454 @@
+Okay, hello Cloud Gurus
+and welcome to this lecture.
+In this lecture we're going
+to build our very first serverless website,
+with Route53, API, Gateway, Lambda and S3.
+Let's have a look at how it's going to work.
+so we've got our user, they wanna go ahead
+and get the IP address for helpmestudyawspolly.com,
+which is domain I'm about to register with Route53.
+Route53 will return that IP address
+to the user's web browser, they then wanna go ahead
+and actually get the web page from S3.
+So they're going to be able to navigate to that S3 bucket.
+It's going to return a web page,
+but the actual web page has static and dynamic content
+and they need to get the dynamic content.
+The dynamic content will simply be my name or your name
+and their browser will then send a get request
+over to API Gateway.
+API Gateway will then send that for that get request
+on to Lambda.
+Lambda will then respond
+and then we will send that user's name back to them.
+It's a really really simple site
+and it's going to use basically
+three or four different components.
+So API Gateway, Route53, S3 and Lambda.
+So let's go ahead and get started
+and login to the AWS Console.
+The code for this is all in
+the resources section of the course.
+So please download the code now and unzip it.
+Okay so I'm here in the AWS Console.
+Now, when we're registering a domain name
+and using static websites in S3,
+you need to check two things.
+You need to check that the domain name is available,
+you also need to check that the bucket name is available
+and the bucket name and the domain name have to be the same.
+So I'm going to register helpmestudyawspolly.com.
+The first thing I'm gonna do
+is make sure that's available in S3.
+You check S3 first because it's free
+to register bucket names,
+with domain names it's not free.
+So helpmestudyawspolly.com
+and I'm gonna create that in the Northern Virginia region
+and I'm just gonna go ahead and hit create
+and that is available.
+So provided it's available on Route53,
+this is all going to work.
+So I'm just gonna click in here
+and I'm gonna go over to properties
+and I'm going to enable static website
+hosting for this bucket.
+So use this bucket to host a website.
+We quickly just go over and have a look at our code.
+So this is where I've unzipped the code.
+It's just index.html and error.html.
+This Python is what we're going to use
+for our Lambda function.
+So I'm gonna type in here index.html
+and then error.html.
+I'm gonna go ahead and hit save
+and that has now created our bucket.
+Now I can't do anything yet
+'cause we do need to edit our code.
+The very next thing I need to do,
+well I can't upload our code to our S3 bucket yet,
+because I'm going to need to put in my API Gateway endpoint
+into that code at some point.
+Okay, so that is now an S3 static website bucket.
+The next thing we need to do is go over to Route53.
+So if we go over to services and we scroll down,
+we'll see Route53 here, under Network and Content Delivery
+and then what I'm gonna go ahead and do is,
+I'm going to register this as a domain,
+helpmestudyawspolly
+and just check that that's available,
+hopefully it is and yes it is.
+So you have to make sure that the bucket name is available
+and the domain name is available.
+If they're different, it's not going to work.
+Your bucket name always must be the same as the domain name
+and by that I just mean that this top-level.
+You don't have to have the bucket name with dot com
+but the top, you know, this level here are not top level
+but the next level down.
+So helpmestudyawspolly have to have that,
+as the bucket name as well as the domain name.
+So I'm gonna add that to my cart.
+I'm just gonna go ahead and register this now.
+It's gonna cost me $12.
+This is completely optional if you want to do this or not,
+you can just use the S3 URL for the rest of this course,
+if you don't wanna spend the money.
+So I'm gonna go ahead and register this now
+and just pause the video.
+Okay we now have registered that.
+Sometimes it says it can take up to three days to complete,
+that really, some very rare cases it takes that long.
+Usually you should have it in about 10 or 15 minutes
+or sometimes even less.
+So paused the video and just updated it
+and my helpmestudyawspolly is now registered.
+So we've configured our S3 bucket as a website.
+We have gone in and configured Route53
+or bought a domain name
+and we've made sure that our bucket name
+is the exact same as our Route53 domain name,
+including the top level domain, so helpmestudyawspolly.com.
+Next thing we need to do is configure our Lambda function.
+So let's go over to services and we'll go into Lambda
+which is under Compute.
+If you haven't had a Lambda function before,
+you're going to see this splash screen.
+Just click on create a Lambda function.
+So we're going to be using this Author from scratch.
+Later on when we go and build our Alexa skill,
+we're gonna be using the Serverless Application Repository.
+So there's three ways of doing Lambda functions,
+Author from scratch, Blueprints,
+which are pre-configured templates
+as a starting point for your Lambda function.
+So these are just Lambda functions that are pre-configured
+and then we have the Serverless Application Repository
+and this is basically CloudFormation templates
+that build serverless applications automatically for you.
+So we're going to use
+some Alexa Serverless Application Repository skills later on
+or at least one
+and if you do are interested in learning more
+about Alexa development, we do have a course
+on the A Cloud Guru platform, where we'll teach you
+how to build three skills and again we use
+the Serverless Application Repository for that as well.
+So in here, let's call this,
+MyServerlessWebsite,
+so that's gonna be our function name.
+I'm gonna be using Python 3.6.
+If you haven't used Lambda before.
+we're gonna have to create a new role
+and the role is essentially just allowing Lambda
+the permission to execute.
+So we'll call this, I like to call it, MyLambdaRole
+and we're just gonna use a policy template
+and the policy template you want is
+Simple Microservice Permissions.
+So this allows Lambda to execute.
+That's all it does.
+So there we go, we go ahead and hit "create function"
+and that should now create our function
+and we should be ready to go.
+Okay so my function has now been created.
+Now if we scroll down this is what Lambda looks like.
+So we've got our configuration in here,
+we've got our monitoring, here's our designer.
+If we scroll down we'll be able to see our function codes,
+here's our actual function.
+This is an acquisition Amazon made
+which used to be called "Cloud 9", which is basically
+a cloud integrated development environment or IDE.
+So you can actually write your code now directly into Lambda
+which is really really cool
+and what we're gonna be doing is,
+we're going to be changing this code here to our own code.
+So all we need to do is just go over
+to where you downloaded your code.
+Okay so I'm in the directory where I've unzipped my code,
+hopefully you've done that in the resources section.
+I'm just gonna go ahead and open that up
+with my favorite text editor, which is Text Wrangler,
+on Windows I use Notepad Plus Plus
+and in here we've got our functions.
+So basically all you wanna do is change the name,
+my name at the moment is, the body is Ryan Kroonenburg,
+you wanna change this to your own name.
+Once you've done that, copy it into your clipboard
+and go back over to Lambda.
+And here we are, we're back in the console.
+I'm just going to delete all these lines and paste in my own
+So make sure it is your own name.
+Go ahead and click up here and go save
+and that would now save our function.
+If we scroll all the way back up the top,
+we're almost ready to go
+and what we need to do is add in our triggers.
+Now triggers are really popular exam topics
+in both Solutions Architect-Associate
+as well as Developer-Associate.
+So triggers are API Gateway, AWS IoT, the Alexis Skills Kit,
+the Alexis Smart Home, CloudFront, CloudWatch Events,
+CloudWatch Logs, CodeCommit, CognitoSync Trigger,
+DynamoDB, Kinesis, S3 and SNS.
+Seriously you will probably get a question saying,
+"Which of the following is not a Lambda trigger?"
+So it is worth trying to memorize all this
+going into your exam.
+So we're gonna add API Gateway as a trigger.
+It says in here "configuration required".
+If you scroll down you can see here, configure triggers.
+So it says, "We'll set up an API Gateway endpoint,
+"which will trigger your integration."
+And in here, "Pick an existing API or create a new one."
+we're going to create a new API.
+The API name, just enter it in here.
+So I'm going to call my API, MyserverlessWebsite,
+maybe my serverless, yeah why not, website.
+And then the deployment stage,
+this is going to be in production and in here it says,
+"Configure the security mechanism for your API endpoint".
+So do you want it to have IAM, do you want it to be open
+or do you want it to be open
+but you have to supply an access key before you can use it?
+I'm just gonna make mine open
+and it gives you a warning here saying,
+"Your API endpoint will be publicly available
+"and can be invoked by all users."
+That's fine for this particular one.
+You could if you wanted a little bit extra security,
+do open with the access key,
+but we're not gonna keep this anyway,
+we're gonna delete this once we go
+on to the Polly lab anyway.
+So just go ahead and do open, go ahead and hit 'add'.
+That has now created our API.
+Click up here and just save your function.
+It's going to save everything.
+So if we click this little button here,
+we're actually gonna get the invoke URL.
+You can try copying and paste that into your browser
+but it's not going to work just yet,
+'cause we need to go in and configure it.
+What you can do is click on MyServerlessWebsite
+and that is going to open up the API Gateway page
+and you can see your API Gateway is in here.
+So what we now need to do is go ahead and configure this.
+First thing I want you to note around the API Gateway
+is this UI and I really like this UI
+'cause it actually helps you visualize
+exactly what's going on.
+So you've got your client which is our little user,
+they're gonna send a method request.
+At the moment it could be any,
+but we wanna make it only a get.
+So we're gonna send the get request.
+This is then going to be basically proxied over to Lambda.
+Here's our Lambda function in here.
+We could click on this, open up our Lambda function
+and then that Lambda function
+is going to process that request
+and then do a response.
+It's then going to send that back to API Gateway
+and API Gateway is going to send a method response
+back to our client, which will hopefully be our name.
+So what we wannna do is,
+we're gonna change this over to a get request.
+Let's just start by deleting this method.
+So I'm gonna go ahead and delete this
+and then I'm gonna go and create a new method
+and the method is going to be a get.
+So these are all our valid HTML methods.
+So I'm going to make mine a get and click the little tick
+and that's going to give us our setup.
+So in here we've got the integration point
+for your new method.
+So what do we want to connect this method to?
+Do we want it to be to a Lambda function or to HTTP?
+Do we wanna give it a mock response?
+Maybe this is a development API that we're testing.
+Do we want another AWS service?
+Do we wanna link this into a VPC?
+We're gonna select Lambda functions
+and then we're going to use Proxy Integration.
+So we're going to allow it
+to proxy this across to Lambda and here's your region.
+If you actually type in your function here
+and it's only gonna be the functions
+that exist within that region.
+So make sure you note the region
+in which your Lambda function exists.
+So mine's in US-east-one.
+Click on MyServerlessWebsite
+and I'm gonna go ahead and hit save and this then says,
+"You're about to give API Gateway permission
+"to invoke your Lambda function".
+And here is the ARN of our Lambda functions.
+So the Amazon resource name of our Lambda function.
+I'm gonna go ahead and click OK
+and that has now set it all up.
+So it will be almost ready to go.
+The next thing we need to do is go ahead and deploy our API.
+So let's click in here and go deploy.
+Deployment stage, I'm going to deploy this into production
+and this deployment description
+will be my first prod deployment, something like that.
+I'm gonna go ahead and hit deploy
+and you'll see now that we're in stages
+and so if you ever need to get back to this screen,
+go over to stages, click on prod and then click on get,
+you will have your invoke URL.
+So if we click on this, we should hopefully be able
+to get our name and there we go.
+API Gateway is triggering a Lambda function
+and the Lambda function is responding with my name
+and you can see it there.
+If you click back and you wanna get that URL again
+just click on stages and then prod, grab the URL.
+I'll quickly show you what it looks like as well.
+If we were to do a CodeCommand in an EC2 instance.
+So here I am in an EC2 instance.
+I'm just going to curl and then that
+and then I'm going to output it
+into something like myname.txt let's say.
+So if we now know myname.txt, there we go,
+we can see it's my EC2 instance has called API Gateway
+it has gotten my name
+and it has then saved that to a text file.
+So now that we've done all this,
+we're ready to upload or edit our code
+and then upload it to S3.
+So go to where you downloaded your code.
+Okay so I'm here where I downloaded my code.
+All we wanna do is open up index.html
+with our favorite text editor.
+So TextWrangler or Notepad Plus Plus
+and so we've opened it up.
+All we need to do is change this line of code here
+from your API Gateway link here
+and just paste in your API Gateway and hit save
+and quickly just go through what it is this code does.
+So it's HTML.
+I've got our header here.
+In our header we've got some JavaScript
+which has a function called myfunction
+and then we've got the body
+and here we've got a header which says, "Hello"
+and then it says, the ID is "My demo, Cloud Gurus"
+and then we've got a button
+and on click it's going to execute this function
+and the button says, "Click me"
+and we're gonna end our button.
+So the function in here and you can see the function,
+basically what we're gonna do is a HTTP request.
+The HTTP request is going to be a get request.
+It's going to go to our API Gateway URL
+and if it's successful,
+so if the status is 200,
+then it's going to display the response.
+And then we've got an image
+and you'll see what this image is at the end of the lecture.
+It's one of my favorite photos in the whole wide world.
+So let's go ahead and save this
+and go back over to the AWS Console.
+So back in the AWS console,
+I'm gonna go over to services
+and I'm gonna go down to S3 which is under storage.
+So down in here, so I'm in S3 there is a slight UI change,
+since I first started recording this,
+but if you just scroll down and go to your bucket,
+it says, helpmestudypolly,
+you could see in here it says,
+"Bucket and objects are not public".
+We need to change that.
+So you need to click in here
+and go edit public access settings,
+then you just need to make sure
+these four check boxes are unchecked.
+Go ahead and hit save and go ahead and type confirm.
+And then that means
+that objects in this bucket can now be public
+and you see that has changed "Objects can now be public".
+So if you ever have access
+or if you ever have permissions issues,
+trying to do stuff with S3,
+make sure you edit your public access settings.
+Let's go ahead and click in this bucket
+and we're gonna go over to upload.
+I'm gonna upload my files.
+So let's add our files in here.
+So it's error and index.html.
+I'm gonna go ahead and hit upload
+and then the very last thing we need to do
+is make these public.
+So if we just go more and click on "Make public"
+and make public, that will now make our HTML file public
+and our index.html and our error.html
+and the very last thing we need to do is
+we need to go over to Route53.
+So we'll go down to networking, Route53,
+Route53 and click on hosted zones
+and in here, I've got my hosted zones,
+helpmestudyawspolly and I'm gonna create a record set
+and this record set is going to be an alias record.
+So it's just gonna be the naked domain name.
+So it's not gonna have a www or anything like that.
+So just click on alias and in here you've got your targets.
+So if we click in here,
+you should be able to see your S3 website in here.
+If you can't, if it says "No targets available"
+it means that your S3 bucket name
+and your Route53 domain name are not the same
+and it does include the top-level domain name as well.
+So you do definitely need that.
+So go ahead and click in here and go ahead and hit create
+and that has now created my A record and it's an alias
+and it's pointing back to my S3 bucket.
+So the next thing I need to do is just
+go over to helpmestudyawspolly.
+Okay so I'm just gonna type and helpmestudyawspolly.com
+and I'm gonna go ahead and hit enter and there we go.
+Says "Hello Cloud Gurus"
+And it says "Click me".
+That will then send a request off to API Gateway
+which will trigger our Lambda function
+which will return our name back to API Gateway
+which should hopefully come back to our browser,
+there we go.
+Hello Ryan Kroonenburg.
+And you might be wondering what this picture is.
+This is my favorite photo in the whole wide world.
+So this is my son Ethan, this is me.
+It's the 6th of February 2018
+and that is the Falcon Heavy, taking off,
+sending a Tesla to Mars.
+So I was lucky enough to take a week off to go see that.
+We're at Cape Canaveral
+and we watched the Falcon Heavy
+which is the world's largest rocket ship in terms of thrust,
+take a Tesla into space.
+It seriously was one of my favorite days in my whole life.
+So I figured I'd just chuck that up there.
+If we do have any SpaceX engineers
+or Tesla engineers watching the course,
+big shout out to you.
+Please tweet me, massive fan.
+Anyway, you have done really really well.
+You have taken your first step into a serverless world.
+This was a very very basic website.
+You can configure it any way that you want.
+So before we go on and build our Alexa skill
+using the Serverless Application Repository,
+there's one thing I wanna show you,
+which is how to use version control in Lambda.
+This is a very popular exam topic.
+It will come up an awful lot in your exams.
+So we're gonna do that and then we're gonna go ahead
+and build our Alexa skill which uses
+the Serverless Application Repository
+and we're gonna convert our notes using the Polly service,
+store them in S3 and get Alexa to play them.
+So if you've got the time,
+please join me in the next lecture.
+Thank you.

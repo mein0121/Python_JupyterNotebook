@@ -1,0 +1,70 @@
+<!-- function_exam.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+
+
+        // 함수 정의
+        function hello1() {
+            alert("경고입니다.")
+        }
+
+        // 매개변수가 있는 함수
+        function hello2(name, age){
+            alert(`${name},${age}`)
+            if (!name){
+                console.log('이름 입력')
+            }
+        }
+	
+        
+        // 반환값이 있는 함수
+        function hello3() {
+            name = prompt("이름을 입력하세요")//사용자 입력
+            return "이름 : "+name
+        }
+
+        // 함수 리터럴.
+        hello4 = function (name) {
+            console.log(name)
+        }
+
+        //Rest Parameter
+        hello5 = function(name, age, ...other) {
+            console.log(name, age, other)
+        }
+        
+        function worker(func){
+            num1 = 10
+            num2 = 20
+            result = func(num1, num2)
+            console.log("계산결과: "+result)
+        }
+        function sum(n1, n2){
+            return n1 + n2
+        }
+      
+                
+		
+		//화살표 함수
+		let func1 = (num1, num2) => num1+num2
+
+
+		let func2 = (num1, num2) => {
+			result = num1, num2;
+			console.log(result);
+		}
+		
+        hello3()
+    </script> 
+    
+</head>
+<body>
+    <h2>함수 예제</h2>
+    bbbbb
+</body>
+</html>

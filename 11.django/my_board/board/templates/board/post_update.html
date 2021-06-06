@@ -5,7 +5,8 @@
 
 {%block contents%}
 <h1>글 수정폼</h1>
-<form method="POST">
+<!-- 파일 업로드폼: enctype='multipart/form-data' -->
+<form method="POST" enctype="multipart/form-data">
     {%csrf_token%}
     <!-- {{form.as_p}} -->
     {%bootstrap_form form%}
