@@ -31,11 +31,13 @@
         // 함수 리터럴.
         hello4 = function (name) {
             console.log(name)
+            document.write(name)
         }
 
         //Rest Parameter
         hello5 = function(name, age, ...other) {
             console.log(name, age, other)
+            document.write(name,age,other)
         }
         
         function worker(func){
@@ -47,6 +49,7 @@
         function sum(n1, n2){
             return n1 + n2
         }
+
       
                 
 		
@@ -58,13 +61,20 @@
 			result = num1, num2;
 			console.log(result);
 		}
-		
-        hello3()
+
+
+
     </script> 
     
 </head>
 <body>
     <h2>함수 예제</h2>
-    bbbbb
+    <script>
+        // hello2('hong',33)
+        // hello4('ho')
+        hello5('ho',33,'len',44,'g')
+        worker(func2)
+    </script>
+
 </body>
 </html>

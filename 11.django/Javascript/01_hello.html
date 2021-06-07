@@ -6,7 +6,46 @@
     <title>Document</title>
 </head>
 <body>
-   
-    
+   안녕하세요 <br>
+   <script>
+       document.write("안녕하세요")
+    </script>
+
+
+    alert(5)<br>
+    <script>
+        // alert("No")
+        for (i = 0; i<20; i++) {
+            document.write(i)
+        };
+    </script>
+    <hr>
+    <script src="scripts.js">
+    </script>
+    <script>
+        let name = 'Hong'
+        let age = 33
+        let info = `name:${name}, age:${age}`
+        console.log(info)
+        let a=10 ,b=20,c = 30
+        expr = `${a}+
+        ${b}*
+        ${c}=
+        ${a+b*c}`
+        let value = `1번줄
+2번줄
+    3번줄` 
+        document.write(expr+'<br>')
+        console.log(value)
+        document.write(value)
+
+        function test (num1, num2,...num3) {
+            console.log(num1, num2, num3)
+        };
+        test(10, 20, 30, 40, 50, 60, 70)
+        
+
+    </script>
+
 </body>
 </html>
