@@ -8,7 +8,7 @@
 </head>
 <style>
     #layer{
-        width:300px;
+        width: 250px;
         height:300px;
         background-color:blue;
     }
@@ -16,7 +16,7 @@
 <script>
 
 
-
+    // 일반 버튼을 이용해서 submit처리
     function checkForm(){
         // alert('클릭-폼')
         nameTF = document.getElementById('name')//id가 name인 태그를 조회
@@ -26,7 +26,7 @@
 
         if(!name){  //name=''
             alert('이름을 입력하세요')
-            nameTF.focus()
+            nameTF.focus() //태그로 포커스를 이동.
             return
         }else{
             //5글자 이하만 가능.
@@ -45,8 +45,8 @@
             ageNum = parseInt(age) //정수로 변경안되는 문자열일 경우 NaN(false)이 반환
             if(!ageNum){
                 alert('나이는 숫자만 가능합니다.')
-                ageTF.value = ''
-                ageTF.focus()
+                ageTF.value = ''//value값을 지우고
+                ageTF.focus()   //해당 태그로 포커스를 이동.
                 return
             }
         }
@@ -54,7 +54,7 @@
         form = document.getElementById('form')
         form.submit() //form태그.submit() 전송
     }
-
+    // form 태그의 submit처리. 
     function checkForm2(){
         // alert('클릭-폼')
         nameTF = document.getElementById('name')//id가 name인 태그를 조회
@@ -93,22 +93,25 @@
     function check(text_input) {
         alert(text_input.value)
         text_input.value = ""
+        text_input.size = 20;// text_input의 사이즈를 조절.
     }
 </script>
 <!-- <script src='scripts.js'></script> -->
 <body>
+    <!-- 태그의 id속성 - 태그의 식별값을 설정. javascript나 css에서 특정 태그를 조회할때 사용할 식별값. -->
     <div id='layer' onmouseover='console.log("마우스 IN")' 
                     onmouseout='console.log("마우스out")'
                     onclick='alert("클릭")'></div>
 
-    
-    <input type='text' name='txt' onblur='check(this)'>
-
+    <!-- <input type='text' name='txt' size=50 onfocus="console.log('포커스 얻음')" onblur='alert(this.value)'> -->
+    <input type='text' name='txt' size=50 onfocus="console.log('포커스 얻음')" onblur='check(this)'>
+    <!-- this: input태그(이벤트가 발생한 태그). this.value: input 태그의 value속성. -->
 
     <form action='/test' method='post' id='form' onsubmit='return checkForm2()'>
         이름: <input type='text' name='name' id='name'><br>
         나이: <input type='text' name='age' id='age'><br>
         <input type='button' value='클릭' onclick='checkForm()'>
+        <!-- <input type='button' value='클릭' onclick='alert("df")'> -->
         <input type='submit' value='등록'>
     </form>
 </body>

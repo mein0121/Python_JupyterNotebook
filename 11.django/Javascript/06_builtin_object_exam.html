@@ -11,38 +11,45 @@
             let arr = [1,2,3,4,'바나나','귤', true]
             console.log(arr)
             // console.log('배열 크기 : '+arr.length)
-            // let v1 = arr.pop() 
-            // let v2 = arr.shift()
-            // console.log(v1, v2)
-            // console.log(arr)
+            let v1 = arr.pop() // 마지막 index의 값을 삭제하면서 반환
+            let v2 = arr.shift()//첫번째 index의 값을 삭제하면서 반환
+            console.log(v1, v2)
+            console.log(arr)
             
-            // let v3 = arr.splice(1,2) 
-            // console.log(`splice(2,3): ${v3}`)
-            // console.log(arr)
+            let v3 = arr.splice(2,2) //splice(시작인덱스, 개수,...): 시작인덱스부터 개수만큼 제거
+            //splice(시작인덱스, 개수,...): 시작인덱스부터 개수만큼 제거지만 개수이후 값을 삽입.
+            console.log(`splice(1,2): ${v3}`)
+            console.log(arr)
             
-            // arr.push("마지막값")
-            // console.log(arr)
+            arr.push("마지막값")
+            console.log(arr)
             
-            // arr.unshift('첫번째 값')
-            // console.log(arr)
+            arr.unshift('첫번째 값')
+            console.log(arr)
             
-            // arr.splice(2,0, "삽입할 값",1,2,3,4,5)
-            // console.log(arr)            
+            
+
+            arr.splice(2,0, "삽입할 값",1,2,3,4,5)
+            //splice(시작인덱스, 개수,...): 시작인덱스부터 개수만큼 제거지만 0이후 값을 삽입.
+            console.log(arr)    
+            arr.splice(1) // 시작값뒤 개수가 안주어지면 전체 삭제.
+            console.log(arr)        
         }
         function arrayExam2() {
             let arr = ['a','b','c','d','e']
-            // console.log(arr[0], arr[2])
-            // arr[1] = '가' 
-            // console.log(arr)
-            // arr[7] = '나'
-            // console.log(arr)
-            // console.log(arr[6])
-            // for (i = 0; i < arr.length; i++) { 
-            //     console.log(arr[i])
-            // }
-            // for (i in arr) {
-            //     console.log(i, arr[i])
-            // }
+            console.log(arr)
+            console.log(arr[0], arr[2])
+            arr[1] = '가'  // index[1]을 '가'로 변경.
+            console.log(arr)
+            arr[7] = '나'
+            console.log(arr)
+            console.log(arr[6])
+            for (i = 0; i < arr.length; i++) { 
+                console.log(arr[i])
+            }
+            for (i in arr) {
+                console.log(i, arr[i])
+            }
         }
         function dateExam() {
             let today = new Date() 

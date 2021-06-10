@@ -7,11 +7,12 @@
     <title>Document</title>
     <script>
         let person = {
-            name:"홍길동",
-            age:20,
-            isMarriage:false,
-            "job name":"회사원",
-            hobby:['게임', '스포츠'],
+            name:"홍길동",// 문자열(String)
+            age:20, //  정수(number)
+            isMarriage:false,//boolean
+            "job name":"회사원", // property 이름에 변수에서 사용할 수없는 특수문자(공백)을 사용할 경우 ""로 감싸준다.
+            hobby:['게임', '스포츠'], // 배열
+            //메소드
             go:function(place){
                 alert(place+"에 간다.")
             },
@@ -23,13 +24,38 @@
         
         // 값/메소드 호출: 객체.변수명,  객체["변수명"]
         console.log(person.getInfo())
-        // console.log(person["job name"])
+        console.log(person["job name"])
 
-        // console.log(person.name)
-        // console.log(person["name"])
-        // m = person.isMarriage ? "기혼" : "미혼"
-        // console.log(m)
+        console.log(person.name)
+        console.log(person["name"])
+        m = person.isMarriage ? "기혼" : "미혼"
+        console.log(m)
         // person.go("서울")
+
+
+        person.age = 50
+        console.log(person.getInfo())
+
+        let {name, age, isMarriage, address="None"} = person
+        // name = person.name
+        // age = person.age
+        // isMarriage = person.isMarriage
+        console.log(name, age, isMarriage, address)
+
+        //배열 구조 분해
+        arr = [100,200,300,400,500]
+        // let [v1,v2,v3] = arr // v1=arr[0], v2=arr[1], v3 = arr[2]
+        let [v1,v2,...v3] = arr // v1=arr[0], v2=arr[1], v3 = 나머지
+
+        console.log(v1,v2,v3)
+
+        console.log(person.hobby)
+        for(hobby_idx in person.hobby) {
+            console.log(person.hobby[hobby_idx])
+        }
+
+        let [hobby1, hobby2] = person.hobby
+        console.log(hobby1, hobby2)
 
     </script>
 </head>
