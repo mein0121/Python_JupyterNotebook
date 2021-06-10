@@ -8,15 +8,19 @@
     <title>Document</title>
     <script>
         function checkHobby() {
+            let result=[]
             hobbyList = document.f1.hobby
             console.log(hobbyList)
             console.log(hobbyList.length)
-            var cnt = 0 //체크된 체크박스 개수
+            let cnt = 0 //체크된 체크박스 개수
             for (i=0; i<hobbyList.length; i++)  {
-                if(hobbyList[i].checked) {  
+                if(hobbyList[i].checked) {
+                    result.push(hobbyList[i].value)
                     cnt++
                 }
             }
+            console.log(result)
+            console.log(result.length)
             
             if(cnt < 3) {
                 alert('취미는 세개이상 체크하세요.')
@@ -25,14 +29,14 @@
             alert('전송')
             
         }
-
+        // 모두선택/해제 선택시 취미 체크박스 상태를 동일하게 만들어서 처리.
         function checkAll() {
-            var f1 = document.f1
-            var flag = f1.allCheck.checked
+            let f1 = document.f1
+            let flag = f1.allCheck.checked
             console.log(flag)
-            var hobbyList = f1.hobby
+            let hobbyList = f1.hobby
             for(i=0; i<hobbyList.length;i++){
-                hobbyList[i].checked = flag
+                hobbyList[i].checked = flag //hobby의 체크상태를 allcheck의 체크상태 값으로 변경.
             }
         }
     </script>

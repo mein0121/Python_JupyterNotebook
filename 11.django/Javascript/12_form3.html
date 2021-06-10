@@ -11,11 +11,11 @@
             var idx = sel.selectedIndex  //선택 항목의 index
             console.log(idx)
             optionList = sel.options //<option>들을 배열로 반환.
-            /*for (i=0; i < optionList.length; i++){
-                console.log(optionList[i].value+","+
-                            optionList[i].text+","+
-                            optionList[i].selected)
-            }*/
+            // for (i=0; i < optionList.length; i++){
+            //     console.log(optionList[i].value+","+
+            //                 optionList[i].text+","+
+            //                 optionList[i].selected)
+            // }
             //선택된 option의 value/text
             var str = optionList[idx].value+"-"+optionList[idx].text
             console.log(str)
@@ -44,7 +44,7 @@
                  value는 생략가능 (생략: Text가 value가 됨.)
             -->
             <option value='default'>번호선택</option>
-            <option>010</option>
+            <option value="공일공">010</option>
             <option>011</option>
             <option>016</option>
             <option>019</option>

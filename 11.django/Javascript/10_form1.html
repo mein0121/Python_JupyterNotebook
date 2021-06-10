@@ -8,6 +8,9 @@
     <script>
         function sendForm(num){
             var f1 = window.document.f1 
+
+            let ta = f1.ta
+            alert(ta.value)
             
              if (num==1) {
                 f1.action = '/member/add'
@@ -22,6 +25,7 @@
             id = f1.id.value
             password = f1.password.value
             
+            alert(id+", "+password)
             
             if (id.length < 5) {
                 alert("ID는 5글자 이상 입니다.")
@@ -43,6 +47,7 @@
 </head>
 <body>
     <form name='f1'>
+        <textarea name="ta"cols="100", rows="5"></textarea><br>
         ID: <input type='text' name='id' required><span style='color:red' id="id_error"></span><br>
         패스워드: <input type='password' name='password' required><br>
 
