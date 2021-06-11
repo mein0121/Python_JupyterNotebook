@@ -25,6 +25,8 @@
            }
         function checkSel() {
             //번호선택이 선택되면 전송되지 않도록 처리.
+            s = document.getElementById("layer")
+            s.innerHTML = '<input type="text">'
             if(document.f1.phone.selectedIndex==0) {
                 alert('번호를 선택해요')
                 return false

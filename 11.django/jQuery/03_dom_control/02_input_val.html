@@ -1,0 +1,149 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.6.0.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	
+	$("#eachBtn").on("click", function(){
+		/*
+			each() - 배열이나 jQuery 셀렉터 함수로 조회한 node list 내의 요소들을 반복 처리하는 메소드.
+			배열 반복 : $.each(배열객체, 함수);
+			jQuery함수로 조회한 node list 반복 : $("셀렉터").each(함수)
+		*/
+		var nameList = ["홍길동", "이명수", "박철우", "이영희"];
+		var txt = "";
+		/*
+		for(var i = 0; i < nameList.length; i++){
+			txt = txt + nameList[i];
+		}
+		*/
+		$.each(nameList, function(idx){ //함수에 변수를 선언하면 반복 index를 전달한다.
+			//조회된 요소 - this
+			txt += idx+this+"<br>";
+		});
+		
+		//txt+="<hr>";
+        txt=''
+		$("input").each(function(){
+			//this - 조회된 요소 : element node
+			//txt += this.value+"<br>"; //$(this).val();
+            
+		});
+		
+		
+		
+		$("#selectedHobby").html(txt);
+		
+	});
+	
+	
+	//$("input:text")
+	$("input[type=text]").on("focus", function(){
+		//this.value
+		//this: event source
+		//alert($(this).val());
+		$(this).val(""); //value값을 변경
+	});
+	
+	$("#hp1").on("change", function(){
+		alert($(this).val());//select에서 선택된 option의 value값 조회
+		alert("선택된 option의 index : "+this.selectedIndex);
+		if(this.selectedIndex == 0){
+			alert("전화번호를 선택하세요");
+		}
+	});
+	
+	$("#selBtn").on("click", function(){
+		alert($("#hp1").val());
+		//alert($("input:text").val());
+		$("input:text").each(function(){
+			alert(this.value);
+		});
+	});
+	$("#chkbtn").on("click", function(){
+		//취미선택 체크박스들의 value를 조회
+		var txt = "<ul>";
+		$("input[name=hobby]").each(function(){
+			if(this.checked){ //$(this).prop("checked") : 태그속성조회, 
+												//$(this).prop("checked", true) : 태그 속성변경
+				txt += "<li>"+this.value+"</li>";
+			}
+		});
+		txt += "</ul>";
+		$("#selectedHobby").html(txt);
+	});
+	
+	$("#allCheck").on("click", function(){
+		$("input[name=hobby]").prop("checked", this.checked);
+	});
+	
+	$("#etcBtn").on("click", function(){
+		//셀렉터 함수로 조회한 node list 의 개수 조회.
+		alert("hobby개수 : "+$("input[name=hobby]").length);
+		alert("선택된 취미개수 : "+$("input[name=hobby]:checked").length);
+		
+		//셀렉터 함수로 조회한 node list에서 한개의 node객체 조회.
+		//$(":text").get(0).value = '이름입니다.';
+		//$(":text")[1].value = "22";
+		
+		var obj = $(":text");
+		obj.get(0).value="이름";
+		obj[1].value = 30;
+		
+		
+	});
+});
+</script>
+
+
+<style type="text/css">
+form *{
+	margin: 5px;
+}
+</style>
+</head>
+<body>
+<button id="eachBtn">$.each()</button><br>
+<form id="form1" name="form1" action=""	 method="post">
+이름 : <input type="text" name="name" id="name"><br>
+나이 : <input type="text" name="age" id="age"><br>
+
+전화 : 
+<select id="hp1">
+	<option>선택하세요</option>
+	<option value="010">공통</option>
+	<option>011</option>
+	<option>016</option>
+	<option>017</option>
+	<option>018</option>
+	<option>019</option>
+</select>
+<input type="button" value="선택" id="selBtn">
+<br>
+
+취미 : 
+<label>영화감상 <input type="checkbox" name="hobby" value="영화감상"></label>
+<label>음악감상 <input type="checkbox" name="hobby"  value="음악감상"></label>
+<label>독서 <input type="checkbox" name="hobby"  value="독서"></label>
+<label>운동 <input type="checkbox" name="hobby"  value="운동"></label>
+<label>게임 <input type="checkbox" name="hobby"  value="게임"></label>
+<input type="button" value="체크박스조회" id="chkbtn">
+
+<label>모두선택<input type="checkbox" id="allCheck"></label> 
+
+<div id="selectedHobby">선택된 체크박스 </div>
+</form>
+<button type="button" id="etcBtn">Node체크버튼</button>
+</body>
+</html>
+
+
+
+
+
+
+

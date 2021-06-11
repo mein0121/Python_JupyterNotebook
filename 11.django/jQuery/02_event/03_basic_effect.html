@@ -1,0 +1,55 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.6.0.js"></script>
+<script type="text/javascript">
+  /*
+  	$("Node들 selector")
+  	노드들을 나오게한다.      노드들을 감춘다.			   반대상태로 변경.
+  	.show()					.hide()						.toggle();
+  	.fadeIn()				.fadeOut()					.fadeToggle();
+  	.slideDown()			.slideUp()					.slideToggle();
+  	애니메이션 효과가 다르다.
+  	매개변수(모두 생략 가능)
+  	1. 정수(밀리초) - 나타나거나 사라질때 걸리는 시간.
+  	2. callback 함수 - 나타나거나 사라지는 것이 완료되면 호출될 함수.
+  */
+	$(document).ready(function(){
+		$("#image").hide();
+		
+		$("#showBtn").on("click", function(){
+			// $("#image").show(1000);
+			// $("#image").fadeIn(1500);
+			$("#image").slideDown(2000);
+		});
+		
+		$("#hideBtn").on("click", function(){
+			// $("#image").hide(500);
+			// $("#image").fadeOut(2000);
+			$("#image").slideUp(2000);		
+		});
+		
+		$("#toggleBtn").on("click", function(){
+			$("#image").toggle();
+			// $("#image").fadeToggle();
+			// $("#image").slideToggle(2000);
+		});
+	});
+</script>
+</head>
+<body>
+<h2>배경사진</h2>
+<input type="button" id="hideBtn" value="Image 감추기">
+<input type="button" id="showBtn" value="Image 보기">
+<input type="button" id="toggleBtn" value="Image 토글"><p>
+
+<img id="image" src="image.jpg"><!-- src="그림의 url" -->
+
+</body>
+</html>
+
+
+

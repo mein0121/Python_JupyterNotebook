@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.6.0.js"></script>
+<script type="text/javascript">
+/*
+ Javascript 에서 객체 생성 - 객체 literal 방식.
+ 변수 = {"property명" : 값 [, property명 : 값] }
+ - property 명 : 따옴표로 감싸도 되고 안 감싸도 된다. (단 변수명에 사용못하는 문자를 사용할 경우는 감싼다.)
+ - 값 : Javascript value들이 모두 올 수 있다.
+ 	- 문자열, 숫자(정수/실수), 논리(true/false)
+ 	- null
+ 	- 배열   : [값, 값, 값]
+ 	- 함수: 객체속성에 함수를 대입하면 메소드가 된다.
+ 	- 객체 : 
+		let abc = {
+					prop:{name:'홍길동', age:20}
+				  }
+ 	
+ - 객체의 속성 사용(조회/변경)
+ 		- . 표기법 : 객체.속성명
+ 		- [] 표기법 : 객체["속성명"] =>속성명은 따옴표로 감싸야 한다.
+ */
+ 
+
+
+var car = {
+ 			name:"소나타",
+ 			"maker":"현대",
+ 			'price':1000000,
+ 			'gasoline':true, 
+ 			"option":["썬루프", "네비게이션", "블랙박스"],
+ 			"owner":{"name":"홍길동", "age": 20, "address":"서울"},
+ 			"go":function(){
+ 					//함수가 객체의 속성(property)이되면 -> 객체의 동작 -> 메소드
+ 					//메소드에서 객체의 property 접근시 this.property명 으로 접근
+ 					//this => 메소드 소유 객체를 가리킨다.
+ 					alert(this.name+" 차가 간다.");
+ 			 }
+ 		};
+$(document).ready(function(){
+	$("#btn1").on("click", function(){
+		//car 객체의 속성 조회
+		alert(car.name+" - "+car["name"]);
+		// alert(car.owner.name+'-'+car["owner"]["name"]);
+		// car.year = 2000; //속성 추가.-없는 속성에 값을 대입하면 속성이 추가됨.
+		// alert(car.year);
+		// car.name = "SM5";//속성 값 변경.
+		// alert(car.name);
+		// car.go();//메소드 호출
+		// car["go"]();
+		
+	});
+	$("#btn2").on("click", function(){
+		for(let attrName in car){
+			alert(car[attrName]);
+		}
+	});
+	
+}); 	
+
+
+
+
+
+
+</script>	 			
+</head>
+<body>
+<button id="btn1">객체속성처리</button>
+<button id="btn2">for in 구문</button>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+

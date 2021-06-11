@@ -1,0 +1,44 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style type="text/css">
+div {
+	padding: 15px;
+}
+</style>
+<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.6.0.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	$("#afterBtn").on("click", function(){
+		//after() / insertAfter() -> 다음 형제노드로 추가
+		//$("#child2").after("<div>New Row</div>");
+		$("<div>새로운 행</div>").insertAfter("#child3");
+	});
+	$("#beforeBtn").on("click", function(){
+		//before()/insertBefore() -> 이전 형제노드로 추가.
+		$("#child4").before("안녕하세요");
+		$("button").insertBefore("#child2");
+	});
+	$("#allBtn").on("click", function(){
+		$(".child").before("<div>새 행</div>");
+	});
+});
+</script>
+
+</head>
+<body>
+<div id="root">
+	<div id="child1" class="child" style="background-color: lime;">1번</div>
+	<div id="child2" class="child" style="background-color: pink;">2번</div>
+	<div id="child3" class="child" style="background-color: skyblue;">3번</div>	
+	<div id="child4" class="child" style="background-color: lightgray;">4번</div>
+</div>
+<hr>
+<button id="afterBtn">after버튼</button>
+<button id="beforeBtn">before버튼</button>
+<button id="allBtn">all 버튼</button>
+</body>
+</html>

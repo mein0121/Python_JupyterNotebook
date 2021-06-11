@@ -1,0 +1,67 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.6.0.js"></script>
+<script type="text/javascript">
+//페이지가 로딩되는 시점에 매개변수로 함수를 호출
+// ready에 전달 함수 => 각 노드들에 event hadler를 추가
+$(document).ready(function(){
+	$("#chk").on("click", function(){
+	// $("#chk").one("click", function(){// 1회용 event를 처리.
+		//event 처리 함수(callback) 구현부에서 this => event 소스
+		//alert(this.value);
+		/**********************
+		this는 Node 객체이지 jQuery객체가 아니다. 
+		***********************/
+		alert($(this).val())
+
+		alert(this.checked)
+		if(this.checked){
+			alert("체크되었습니다. "+this.checked);
+		}else{
+			alert("체크가 해제됨 : "+this.checked)
+		}
+	});
+	
+	$("#btn").on("click", function(){
+		//$("selector").prop("태그의속성명")->속성의값 리턴
+		alert($("#chk").prop("checked"));
+	});
+	
+	$("a").on("click", function(){
+		return confirm("정말 이동하겠습니까?");
+		//false가 리턴되면 a태그의 내장된 이벤트(이동하는)처리가 멈춘다. 
+	});
+	
+	$("li").on("mouseover", function(){
+		$(this).css("text-decoration", "underline");
+	});
+	
+	$("li").on("mouseout", function(){
+		$(this).css("text-decoration", "none");
+	});
+});
+
+</script>
+</head>
+<body>
+메일 수신여부 : 
+<input type="checkbox" name="mailing" value="true" id="chk" checked="checked">
+<input type="button" value="click" id="btn">
+<hr>
+
+<a href="http://www.google.com">구글</a> <a href="http://www.daum.net">다음</a>
+<hr>
+
+<ul>
+	<li>우유</li>
+	<li>빵</li>
+	<li>두유</li>
+	<li>쿠키</li>
+	<li>탄산음료</li>
+</ul>
+</body>
+</html>

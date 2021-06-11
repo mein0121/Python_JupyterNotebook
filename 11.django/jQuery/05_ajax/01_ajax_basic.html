@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.6.0.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	$("#btn1").on("click", function(){
+		$.ajax({
+			"url":"http://127.0.0.1:8000/api/get_greeting",//요청url 설정
+			"type":"post", //요청방식 - 생략시 get
+			"data":"name="+$("#keyword").val(),//요청파라미터 :queryString, JS객체 "data":{"name":$("#id").val()}
+			"beforeSend":function(){
+				//서버 요청 전에 호출되는 함수. -> return false; 전송을 하지 않는다.
+				if(!$("#keyword").val()){
+					alert("ID를 입력하세요");
+					return false;
+				}  
+			},
+			"success":function(txt){
+				//정상적인 응답이 왔을때 호출될 함수(응답 상태코드 : 200)
+				//	- 매개변수: 1. 응답데이터(서버단에서 전송한값.), 
+				//	2. 응답상태메세지(success), 3.XMLHttpRequest객체 (모두 생략가능.)
+				alert(txt);
+				$("#greetingUL").append("<li>"+txt+"</li>");
+				$("#keyword").val("");
+			}
+		});
+	});
+	
+	$("#btn2").on("click", function(){
+		$.ajax({
+			"url":"http://127.0.0.1:8000/api/get_greeting",//요청url 설정
+			"type":"post", //요청방식 - 생략시 get
+			"data":"name="+$("#keyword").val(),//요청파라미터 :queryString, JS객체 "data":{"name":$("#id").val()}
+			"dataType":"json",
+			"beforeSend":function(){
+				//서버 요청 전에 호출되는 함수. -> return false; 전송을 하지 않는다.
+				if(!$("#keyword").val()){
+					alert("ID를 입력하세요");
+					return false;
+				}  
+			},
+			"success":function(result){
+				//정상적인 응답이 왔을때 호출될 함수(응답 상태코드 : 200)
+				//	- 매개변수: 1. 응답데이터(서버단에서 전송한값.), 
+				//	2. 응답상태메세지(success), 3.XMLHttpRequest객체 (모두 생략가능.)
+				// alert(txt);
+				$("#greetingUL").append("<li>"+result['result']+"</li>");
+				$("#keyword").val("");
+			}
+		});
+	});
+
+	//jsonBtn 이벤트 처리
+	$("#btn3").on("click", function(){
+		
+		$.ajax({
+			"url":"http://127.0.0.1:8000/api/get_item_by_id",
+			"type":"post",
+			"data":{"item_no":$("#keyword").val()},
+			"dataType":"json",
+			"beforeSend":function(){
+				if(!$("#keyword").val()){
+					alert("조회할 ITEM ID를 입력하세요");
+					return false;
+				}
+			 }, //end of beforeSend
+			 "success":function(result){
+				 
+				 txt = `<li>${result['item_no']}, ${result['item_name']}, ${result['item_price']}원</li>`
+				 $('#greetingUL').append(txt)
+			 },  //end of success
+			 "error":function(xhr, status, msg){
+				 //처리도중 오류가 발생한 경우(보통은 에러 메세지가 전송된 경우)
+				 //매개변수(다생략가능) - 
+				 //     1. XMLHttpRequest, 2. 상태메세지, 3. 메세지
+				 alert("오류발생했습니다. "+status+","+msg)
+			 }
+		
+		});//end of ajax() 
+	});//jsonBtn 이벤트처리완료
+	
+	
+	
+});
+</script>
+</head>
+<body>
+
+ID : <input type="text" name="keyword" id="keyword">
+<input type="button" value="get_greeting text요청" id="btn1">
+<input type="button" value="get_greeting json요청" id="btn2">
+<input type="button" value="get_item_by_id 요청" id="btn3">
+
+<hr>
+<ul id="greetingUL"></ul>
+<div id="layer"></div>
+</body>
+</html>
+
+
+
+

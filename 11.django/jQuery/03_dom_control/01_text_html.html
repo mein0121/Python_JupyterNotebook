@@ -1,0 +1,63 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style type="text/css">
+div{
+	border: 1px solid gray;
+	margin-top: 5px;
+	padding: 5px;
+}
+</style>
+<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.6.0.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	//#showBtn에 click 이벤트 처리.
+	$("#showBtn").on("click", function(){
+		var txt = $("#dataLayer").text();//조회된 node의 하위노드들중 text노드들을 조회해서 문자열로 리턴
+		txt = $("#dataLayer").html();//조회된 node의 모든 하위노드(element/text노드)들을 조회해 문자열로 리턴.
+		alert(txt);
+	});
+	
+	$("#txtBtn").on("click",function(){
+		//$("#showLayer").text("<b>안녕하세요</b>");//조회된 node의 하위노드를 매개변수로 전달받은 문자열로 변경
+		$("#showLayer").html("<b>안녕하세요</b>");
+	});
+	
+	$("#htmlBtn").on("click", function(){
+		//#dataLayer하위를 조회해서 #showLayer를 변경하기.
+		$("#showLayer").text('<b>안녕하세요</b>');
+		//$("#showLayer").text($("#dataLayer").html());
+	});
+});
+
+</script>
+</head>
+<body>
+<div id="dataLayer">
+	<i><b>안녕하세요</b></i>
+	<b>반갑습니다.</b>
+</div>
+<p>
+<div id="showLayer">결과</div>
+
+
+
+<input type="button" value="조회버튼" id="showBtn">
+<input type="button" value="text입력" id="txtBtn">
+<input type="button" value="html입력" id="htmlBtn">
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+

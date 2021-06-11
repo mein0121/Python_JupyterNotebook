@@ -1,0 +1,120 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.6.0.js"></script>
+
+<script type="text/javascript">
+
+$(document).ready(function(){
+	$("#appendBtn").on("click", function(){
+		//append(), appendTo() - 마지막 자식노드로 추가.
+		//$("부모노드셀렉터").append("추가할내용")
+		//$("#layer").append("안녕하세요<br>");
+		
+		//$("추가할내용").appendTo("부모노드셀렉터")
+		$("<i>안녕하세요</i><br>").appendTo("#layer");
+	});
+	
+	$("#prependBtn").on("click", function(){
+		//prepend()/prependTo() - 첫 자식노드로 추가.
+		//$("#layer").prepend("<span style='color:red'>Prepend입니다.</span>");
+	
+		$("<span style='color:red'>Prepend입니다.</span>")
+																						.prependTo("#layer");
+	});
+	
+	$("#moveBtn").on("click", function(){
+		$("i").appendTo("#layer");
+		//$("#layer").append($("i"));
+	});
+	$("#addBtn").on("click", function(){
+		
+		
+		$("#tbody").append("<tr><td>new-id</td><td>새이름</td><td>30</td><tr>");
+		$("#test").append($("#tt").html());
+		
+	});
+	
+	$("#clearBtn").on("click", function(){
+		//$("#tbody").remove(); //선택된 노드들을 제거.
+		//$("tr").remove();
+		$("#tbody").empty();//선택된 노드들의 자식노드들을 제거.
+	});
+	
+}); 
+
+
+</script>
+<style type="text/css">
+table{
+	width: 500px;
+}
+</style>
+</head>
+<body>
+
+<div id="layer" style="width: 500px; height: auto; min-height:50px; border: 1px dashed blue; margin-bottom: 10px;">기준점</div>
+<i><b>이것은 옮겨질 예정입니다.</b></i><br>
+<i><b>이것은 옮겨질 예정입니다.</b></i><br>
+<i><b>이것은 옮겨질 예정입니다.</b></i><br>
+<i><b>이것은 옮겨질 예정입니다.</b></i><br>
+<i><b>이것은 옮겨질 예정입니다.</b></i><br>
+<hr>
+<button id="appendBtn">append예제</button>
+<button id="prependBtn">prepend예제</button>
+<button id="moveBtn">dom node 옮기기</button>
+<hr>
+<p>
+<table border='1'>
+<thead>
+	<tr>
+		<td>ID</td>
+		<td>이름</td>
+		<td>나이</td>
+	</tr>
+</thead>
+<tbody id="tbody">
+	<tr>
+		<td>id-a</td>
+		<td>홍길동</td>
+		<td>20</td>
+	</tr>
+	<tr>
+		<td>id-b</td>
+		<td>이순신</td>
+		<td>30</td>
+	</tr>	
+	<tr>
+		<td>id-c</td>
+		<td>김유신</td>
+		<td>25</td>
+	</tr>			
+</tbody>
+<tfoot>
+	<tr>
+		<td colspan='3'>
+			<button id="addBtn">내용 추가</button>
+			<button id="clearBtn">내용 삭제</button>
+		</td>
+	</tr>
+</tfoot>
+</table>
+<div id="tt">
+<select>
+	<option>신맛</option>
+	<option>단맛</option>
+</select>
+</div>
+<div id='test'></div>
+</body>
+</html>
+
+
+
+
+
+
+
