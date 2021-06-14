@@ -7,12 +7,22 @@
 <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.6.0.js"></script>
 
 <script type="text/javascript">
+/*
+$(노드객체) -> 노드객체를 가진 jQurery객체 생성.
+	$(this)
+$(문자열)
+	- 문자열: selector일 경우 -> select한 노드 객체들을 가진 jQuery객체 생성
+		- $('i') i태그들, $('div')L div 태그들, $('#layer') id가 layer인 태그
+	- 문자열: <tag> 일경우 -> <tag>: 노드를 생성해서 그것을 노드리스트로 가진 jQuery객체를 생성
+		- $("<span>안녕</span>")
+*/
 
 $(document).ready(function(){
 	$("#appendBtn").on("click", function(){
 		//append(), appendTo() - 마지막 자식노드로 추가.
 		//$("부모노드셀렉터").append("추가할내용")
-		//$("#layer").append("안녕하세요<br>");
+		// $("#layer").append("안녕하세용<br>")
+		// $("i").append("안녕하세요<br>");
 		
 		//$("추가할내용").appendTo("부모노드셀렉터")
 		$("<i>안녕하세요</i><br>").appendTo("#layer");
@@ -42,6 +52,7 @@ $(document).ready(function(){
 		//$("#tbody").remove(); //선택된 노드들을 제거.
 		//$("tr").remove();
 		$("#tbody").empty();//선택된 노드들의 자식노드들을 제거.
+		// $("#test").empty();
 	});
 	
 }); 
@@ -56,7 +67,8 @@ table{
 </head>
 <body>
 
-<div id="layer" style="width: 500px; height: auto; min-height:50px; border: 1px dashed blue; margin-bottom: 10px;">기준점</div>
+<div id="layer" style="width: 500px; height: auto; 
+min-height:50px; border: 1px dashed blue; margin-bottom: 10px;">기준점</div>
 <i><b>이것은 옮겨질 예정입니다.</b></i><br>
 <i><b>이것은 옮겨질 예정입니다.</b></i><br>
 <i><b>이것은 옮겨질 예정입니다.</b></i><br>

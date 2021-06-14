@@ -20,7 +20,8 @@ $(document).ready(function(){
 	$("#beforeBtn").on("click", function(){
 		//before()/insertBefore() -> 이전 형제노드로 추가.
 		$("#child4").before("안녕하세요");
-		$("button").insertBefore("#child2");
+		// $("button").insertBefore("#child1");
+		$("button").insertAfter("#child4");
 	});
 	$("#allBtn").on("click", function(){
 		$(".child").before("<div>새 행</div>");
