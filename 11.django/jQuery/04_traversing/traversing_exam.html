@@ -14,7 +14,14 @@ table{
 }
 td, th{
 	padding: 5px;
+	/* color: pink; */
+
 }
+.cls {
+	background-color: green;
+	color: snow
+}
+
 </style>
 <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.6.0.js"></script>
 <script type="text/javascript">
@@ -22,11 +29,14 @@ $(document).ready(function(){
 	$("div").css("color", "pink")
 					.not("#cafe").css("background-color", "skyblue")
 					.end().children("a").css("text-decoration", "none");
+					// .children("a").css("text-decoration", "none");
+	// alert($("div").css('color'))
 	
-	
+	// span태그중 class속성이 desc
 	$("span.desc").on("click", function(){
 		//alert($(this).text());
 		$("span.desc").next().text("");
+		//event 처리 함수에서 this는 event source
 		$(this).next().text($(this).text());
 	});
 	
@@ -38,20 +48,43 @@ $(document).ready(function(){
 	*/
 	$("#tbody tr").on("click", function(){
 		$("#tbody tr").css("background-color", "white");
+
+		// var no = $(this).css("background-color", "yellow")
+		// 		//.children(":first-child").text();
+		// 		.children(":nth-child(2)").text();//제목(nth-child(순서)순서번째 자식노드)
+
+		style = {
+			'color': 'green',
+			'background-color':'red',
+			'text-decoration': 'underline'
+		}
+		let no = $(this).css(style).children(':first-child').text()
 		
-		var no = $(this).css("background-color", "yellow")
-					 				  .children(":first-child").text();
 		alert(no);
 	});
+
+	$("#btn").on('click', function(){
+		// $("span.desc").addClass('cls') // span.desc들에 class='cls' 를 추가
+		$("span.desc").toggleClass('cls') // class='cls' 없으면 추가, 있으면 제거
+
+		//속성 조회 #cafe의 자손중 두번째 자식인 a태그
+		link = $('#cafe a:nth-child(2)').prop("href")
+		alert(link)
+		$('#cafe a:nth-child(2)').prop("href", 'http://www.naver.com')//속성값 변경
+
+
+	});
+
 });
 </script>
 </head>
 <body>
+<button id='btn'>클릭하세요</button>
 <div id="cafe">
 카페:
 
 		<span>커피프랜차이즈</span> 
-		<a href="#">스타벅스</a>
+		<a href="#####">스타벅스</a>
 		<a href="#">커피빈</a>
 		<a href="#">커피베네</a>
 		<a href="#">java카페</a>
