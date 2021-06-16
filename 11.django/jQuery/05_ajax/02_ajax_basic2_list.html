@@ -9,14 +9,14 @@ $(document).ready(function(){
 	$("#btn").on("click", function(){
 		$.ajax({
 			"url":"http://127.0.0.1:8000/api/get_item_list",
-			"dataType":"json",
-			"success":function(list){
+			"dataType":"json", // 응답형식
+			"success":function(list){ // 배열 - 원소 : item들(js object)
 				var txt = "";
 				$.each(list, function(){
 					txt += "<tr><td>"+this.item_no+"</td><td>"+this.item_name+"</td><td>"+this.item_price+"원</td>";
 				});
-				//$("#tbody").html(txt);
-				$("#tbody").append(txt);
+				$("#tbody").html(txt);
+				// $("#tbody").append(txt);
 			},
 			"error":function(){
 				alert("요청 처리도중 오류가 발생했습니다.");

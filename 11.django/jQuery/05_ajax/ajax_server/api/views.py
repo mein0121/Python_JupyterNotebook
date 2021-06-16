@@ -10,7 +10,12 @@ def get_greeting(request):
     name = request.POST.get('name')
     result = f"{name}님 안녕하세요"
     print(result)
-    # return HttpResponse(result)
+
+    # json문자열(str) <-> dictionary
+    # result_json = json.dumps({'result':result}) # json.dumps(): dict->json문자열, loads(): json문자열->dict
+
+    # print(result_jason)
+    # return HttpResponse(result_json)
     result_dict = dict(result=result)
     return JsonResponse(result_dict) #Dictionary나 List를 JSON 문자열로 변환해서 응답.
 
@@ -21,10 +26,12 @@ from django.core import serializers
 def get_item_by_id(request):
     # item_id = request.POST.get('item_id')
     item_no = request.POST.get('item_no')
+    # item_no = request.POST.get('item_name')
     print(item_no)
     item = Item.objects.get(pk=item_no)  #JSON Serializer를 위해 QuerySet으로 조회한다.
-    result = parsing_item_to_json()
-    # result = serializers.serialize('json', item) # [{"model": "api.item", "pk": "id-1", "fields": {"item_name": "제품-1", "item_price": 119000}}]
+    result = parsing_item_to_json(item)
+    # result = serializers.serialize('json', item) 
+    #  [{"model": "api.item", "pk": "id-1", "fields": {"item_name": "제품-1", "item_price": 119000}}]
     
     return JsonResponse(result) #QuerySet은 변환안됨.
 

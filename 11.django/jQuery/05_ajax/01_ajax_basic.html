@@ -11,6 +11,7 @@ $(document).ready(function(){
 			"url":"http://127.0.0.1:8000/api/get_greeting",//요청url 설정
 			"type":"post", //요청방식 - 생략시 get
 			"data":"name="+$("#keyword").val(),//요청파라미터 :queryString, JS객체 "data":{"name":$("#id").val()}
+			"dataType":"json", //응답데이터의 형식을 지정. json=> json문자열을 js객체로 변환해서 success함수에 전달.
 			"beforeSend":function(){
 				//서버 요청 전에 호출되는 함수. -> return false; 전송을 하지 않는다.
 				if(!$("#keyword").val()){
@@ -22,8 +23,8 @@ $(document).ready(function(){
 				//정상적인 응답이 왔을때 호출될 함수(응답 상태코드 : 200)
 				//	- 매개변수: 1. 응답데이터(서버단에서 전송한값.), 
 				//	2. 응답상태메세지(success), 3.XMLHttpRequest객체 (모두 생략가능.)
-				alert(txt);
-				$("#greetingUL").append("<li>"+txt+"</li>");
+				alert(txt + ", "+ txt.result);
+				$("#greetingUL").append("<li>"+txt.result+"</li>");
 				$("#keyword").val("");
 			}
 		});
@@ -46,7 +47,7 @@ $(document).ready(function(){
 				//정상적인 응답이 왔을때 호출될 함수(응답 상태코드 : 200)
 				//	- 매개변수: 1. 응답데이터(서버단에서 전송한값.), 
 				//	2. 응답상태메세지(success), 3.XMLHttpRequest객체 (모두 생략가능.)
-				// alert(txt);
+				// alert(result['result']);
 				$("#greetingUL").append("<li>"+result['result']+"</li>");
 				$("#keyword").val("");
 			}
@@ -60,6 +61,7 @@ $(document).ready(function(){
 			"url":"http://127.0.0.1:8000/api/get_item_by_id",
 			"type":"post",
 			"data":{"item_no":$("#keyword").val()},
+			// "data":{"item_name":$("#keyword").val()},
 			"dataType":"json",
 			"beforeSend":function(){
 				if(!$("#keyword").val()){
@@ -67,7 +69,7 @@ $(document).ready(function(){
 					return false;
 				}
 			 }, //end of beforeSend
-			 "success":function(result){
+			 "success":function(result){ //js object
 				 
 				 txt = `<li>${result['item_no']}, ${result['item_name']}, ${result['item_price']}원</li>`
 				 $('#greetingUL').append(txt)
