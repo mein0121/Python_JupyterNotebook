@@ -1,0 +1,30 @@
+1. mkdir project
+
+2. mjpg-streamer 클론
+  - git clone https://github.com/jacksonliam/mjpg-streamer.git
+  
+3. mjpg-streamer 컴파일을 위한 패키지 설치
+ - sudo apt-get install cmake python-pil python3-pil libjpeg-dev build-essential  
+ 
+4. Opencv 4 버전 설치한 경우 다음 코드를 수정한다.
+ - nano mjpg-streamer/mjpg-streamer-experimental/plugins/input_opencv/input_opencv.cpp
+ - control+_  408라인 이동
+ - compression_params.push_back(CV_IMWRITE_JPEG_QUALITY);
+   를 
+   compression_params.push_back(CV::IMWRITE_JPEG_QUALITY);
+   로 수정
+   CV_를 CV:: 로 수정
+ - control + o (저장)
+ - control + x (nano 에디터 종료)
+5. mjpg-streamer/mjpg-streamer-experimental/ 디렉토리로 이동하여 컴파일 및 설치 
+ - cd mjpg-streamer/mjpg-streamer-experimental/
+ - make CMAKE_BUILD_TYPE=Debug
+ - sudo make install
+ - cd ~
+6. 9999 포트로 실행
+ - mjpg_streamer -i "input_uvc.so -d /dev/video0" -o "output_http.so -p 9999 -w /usr/local/share/mjpg-streamer/www/"
+ - mjpg_streamer -i "input_uvc.so -d /dev/video0 -r 1280x720" -o "output_http.so -p 9999 -w /usr/local/share/mjpg-streamer/www/"
+7. web browser에서 
+ - http://192.168.70.151:9999/ 로 접근
+ - http://192.168.70.151:9999/?action=stream
+
