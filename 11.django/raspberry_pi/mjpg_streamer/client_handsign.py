@@ -43,8 +43,9 @@ def detect_func(image, detection_model):
 
 def main():
     model = get_model()
-    url = ''
-    cap = cv2.VideoCapture(url+'/?action=stream')
+    url = 'http://192.168.0.38:9999/?action=stream'
+    # cap = cv2.VideoCapture(url+'/?action=stream')
+    cap = cv2.VideoCapture(url)
     if not cap.isOpened():
         sys.exit(1)
     while True:

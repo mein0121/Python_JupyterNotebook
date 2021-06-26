@@ -4,6 +4,7 @@ from . import views
 
 app_name = 'api'
 urlpatterns = [
-    
+    path('request', TemplateView.as_view(template_name='api/request.html'), name='request'),
+    path('predict', views.predict, name='predict'),
     
 ]
